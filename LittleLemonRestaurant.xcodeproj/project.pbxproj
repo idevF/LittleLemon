@@ -13,6 +13,7 @@
 		A2A47F2A29952E330037375D /* Onboarding.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2A47F2929952E330037375D /* Onboarding.swift */; };
 		A2FA9BC029966EEA00843F85 /* Home.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2FA9BBF29966EEA00843F85 /* Home.swift */; };
 		A2FA9BC229966F7100843F85 /* Menu.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2FA9BC129966F7100843F85 /* Menu.swift */; };
+		A2FA9BC429967EA800843F85 /* UserProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2FA9BC329967EA800843F85 /* UserProfile.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -23,6 +24,7 @@
 		A2A47F2929952E330037375D /* Onboarding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Onboarding.swift; sourceTree = "<group>"; };
 		A2FA9BBF29966EEA00843F85 /* Home.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Home.swift; sourceTree = "<group>"; };
 		A2FA9BC129966F7100843F85 /* Menu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Menu.swift; sourceTree = "<group>"; };
+		A2FA9BC329967EA800843F85 /* UserProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfile.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,6 +59,7 @@
 			children = (
 				A25C95B5299511DF00FC73E3 /* LittleLemonRestaurantApp.swift */,
 				A2A47F2929952E330037375D /* Onboarding.swift */,
+				A2FA9BC329967EA800843F85 /* UserProfile.swift */,
 				A2FA9BBF29966EEA00843F85 /* Home.swift */,
 				A2FA9BC129966F7100843F85 /* Menu.swift */,
 				A25C95B9299511DF00FC73E3 /* Assets.xcassets */,
@@ -145,6 +148,7 @@
 			files = (
 				A2A47F2A29952E330037375D /* Onboarding.swift in Sources */,
 				A2FA9BC029966EEA00843F85 /* Home.swift in Sources */,
+				A2FA9BC429967EA800843F85 /* UserProfile.swift in Sources */,
 				A2FA9BC229966F7100843F85 /* Menu.swift in Sources */,
 				A25C95B6299511DF00FC73E3 /* LittleLemonRestaurantApp.swift in Sources */,
 			);

@@ -10,6 +10,7 @@ import SwiftUI
 let keyFirstName = "firstnamekey"
 let keyLastName = "lastnamekey"
 let keyEmail = "emailkey"
+let keyIsLoggedIn = "keyisloggedin"
 
 struct Onboarding: View {
     @State private var firstName = ""
@@ -43,6 +44,11 @@ struct Onboarding: View {
             } message: {
                 Text(self.errorMessage)
             }
+            .onAppear {
+                if UserDefaults.standard.bool(forKey: keyIsLoggedIn) {
+                    isLoggedIn = true
+                }
+            }
         }
     }
     
@@ -75,8 +81,9 @@ struct Onboarding: View {
         UserDefaults.standard.set(firstName, forKey: keyFirstName)
         UserDefaults.standard.set(lastName, forKey: keyLastName)
         UserDefaults.standard.set(email, forKey: keyEmail)
+        UserDefaults.standard.set(true, forKey: keyIsLoggedIn)
         isLoggedIn = true
-        //print(firstName)
+        //print(firstName)      
     }
     
     func isValid(name: String) -> Bool {
