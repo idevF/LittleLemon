@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A256748F2996B71F0028600A /* FetchedObjects.swift in Sources */ = {isa = PBXBuildFile; fileRef = A256748E2996B71F0028600A /* FetchedObjects.swift */; };
+		A25674912996B72D0028600A /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = A25674902996B72D0028600A /* Persistence.swift */; };
 		A25C95B6299511DF00FC73E3 /* LittleLemonRestaurantApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A25C95B5299511DF00FC73E3 /* LittleLemonRestaurantApp.swift */; };
 		A25C95BA299511DF00FC73E3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A25C95B9299511DF00FC73E3 /* Assets.xcassets */; };
 		A25C95BD299511DF00FC73E3 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A25C95BC299511DF00FC73E3 /* Preview Assets.xcassets */; };
@@ -17,6 +19,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		A256748E2996B71F0028600A /* FetchedObjects.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FetchedObjects.swift; sourceTree = "<group>"; };
+		A25674902996B72D0028600A /* Persistence.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
 		A25C95B2299511DF00FC73E3 /* LittleLemonRestaurant.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LittleLemonRestaurant.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A25C95B5299511DF00FC73E3 /* LittleLemonRestaurantApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LittleLemonRestaurantApp.swift; sourceTree = "<group>"; };
 		A25C95B9299511DF00FC73E3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -61,6 +65,8 @@
 				A2A47F2929952E330037375D /* Onboarding.swift */,
 				A2FA9BC329967EA800843F85 /* UserProfile.swift */,
 				A2FA9BBF29966EEA00843F85 /* Home.swift */,
+				A256748E2996B71F0028600A /* FetchedObjects.swift */,
+				A25674902996B72D0028600A /* Persistence.swift */,
 				A2FA9BC129966F7100843F85 /* Menu.swift */,
 				A25C95B9299511DF00FC73E3 /* Assets.xcassets */,
 				A25C95BB299511DF00FC73E3 /* Preview Content */,
@@ -148,6 +154,8 @@
 			files = (
 				A2A47F2A29952E330037375D /* Onboarding.swift in Sources */,
 				A2FA9BC029966EEA00843F85 /* Home.swift in Sources */,
+				A256748F2996B71F0028600A /* FetchedObjects.swift in Sources */,
+				A25674912996B72D0028600A /* Persistence.swift in Sources */,
 				A2FA9BC429967EA800843F85 /* UserProfile.swift in Sources */,
 				A2FA9BC229966F7100843F85 /* Menu.swift in Sources */,
 				A25C95B6299511DF00FC73E3 /* LittleLemonRestaurantApp.swift in Sources */,
