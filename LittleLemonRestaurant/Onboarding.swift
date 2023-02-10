@@ -7,8 +7,8 @@
 
 import SwiftUI
 
-let keyFirstName: String = "first name key"
-let keyLastName = "last name key"
+let keyFirstName = "firstnamekey"
+let keyLastName = "lastnamekey"
 let keyEmail = "emailkey"
 
 struct Onboarding: View {
@@ -16,27 +16,33 @@ struct Onboarding: View {
     @State private var lastName = ""
     @State private var email = ""
     
+    @State private var isLoggedIn = false
     @State private var errorMessage = ""
     @State private var showInvalidMessage = false
     
     var body: some View {
-        VStack {
-            TextField("First Name", text: $firstName)
-            TextField("Last Name", text: $lastName)
-            TextField("Email", text: $email)
-                .keyboardType(.emailAddress)
-                .textContentType(.emailAddress)
-                .disableAutocorrection(true)
-                .autocapitalization(.none)
-            
-            Button("Register") {
-                checkRegisterForm()
+        NavigationView {
+            VStack {
+                NavigationLink(destination: Home(), isActive: $isLoggedIn) {
+                    EmptyView()
+                }
+                TextField("First Name", text: $firstName)
+                TextField("Last Name", text: $lastName)
+                TextField("Email", text: $email)
+                    .keyboardType(.emailAddress)
+                    .textContentType(.emailAddress)
+                    .disableAutocorrection(true)
+                    .autocapitalization(.none)
+                
+                Button("Register") {
+                    checkRegisterForm()
+                }
             }
-        }
-        .alert("ERROR !", isPresented: $showInvalidMessage) {
-            Button("OK", role: .cancel) { }
-        } message: {
-            Text(self.errorMessage)
+            .alert("ERROR !", isPresented: $showInvalidMessage) {
+                Button("OK", role: .cancel) { }
+            } message: {
+                Text(self.errorMessage)
+            }
         }
     }
     
@@ -69,6 +75,7 @@ struct Onboarding: View {
         UserDefaults.standard.set(firstName, forKey: keyFirstName)
         UserDefaults.standard.set(lastName, forKey: keyLastName)
         UserDefaults.standard.set(email, forKey: keyEmail)
+        isLoggedIn = true
         //print(firstName)
     }
     
