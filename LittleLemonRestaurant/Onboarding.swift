@@ -24,6 +24,8 @@ struct Onboarding: View {
     var body: some View {
         NavigationView {
             VStack {
+                Image("Logo")
+                Hero()
                 NavigationLink(destination: Home(), isActive: $isLoggedIn) {
                     EmptyView()
                 }
