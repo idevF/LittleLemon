@@ -30,14 +30,18 @@ struct Menu: View {
             FetchedObjects(predicate: buildPredicate(), sortDescriptors: buildSortDescriptors()) { (dishes: [Dish]) in
                 List {
                     ForEach(dishes) { dish in
-                        HStack {
-                            Text(dish.title ?? "")
-                            Text(dish.price ?? "")
-                            
+                        HStack(alignment: .center, spacing: 20) {
+                            VStack(alignment: .leading) {
+                                Text(dish.title ?? "")
+                                Text(dish.explanation ?? "")
+                                    .lineLimit(2)
+                                Text(dish.price ?? "")
+                            }
+                            Spacer()
                             AsyncImage(url: URL(string: dish.image ?? "")) { image in
                                  image
                                     .resizable()
-                                    //.aspectRatio(contentMode: .fit)
+                                    .aspectRatio(contentMode: .fit)
                             } placeholder: {
                                 ProgressView()
                             }
@@ -45,6 +49,8 @@ struct Menu: View {
                         }
                     }
                 }
+                // makes the list background invisible, default is gray
+                       .scrollContentBackground(.hidden)
             }
             
         }

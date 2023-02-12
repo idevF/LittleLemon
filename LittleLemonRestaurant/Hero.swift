@@ -25,7 +25,6 @@ struct Hero: View {
                 Text("We are a family owned Mediterranean restaurant, focused on traditional recipes served with a modern twist.")
                     .font(.custom("Karla-Medium", size: 18))
                     .foregroundColor(Color("highlightOne"))
-//                    .multilineTextAlignment(.leading)
                     .frame(width: 230, height: 150)
                 
                 Image("Hero image")
@@ -37,9 +36,6 @@ struct Hero: View {
             
             Text("")
             Text("")
-//            Spacer()
-//            Spacer()
-//            Spacer()
         }
         .padding()
         .background(Color("primaryOne"))
