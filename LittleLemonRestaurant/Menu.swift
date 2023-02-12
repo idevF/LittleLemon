@@ -16,9 +16,16 @@ struct Menu: View {
     var body: some View {
         VStack {
             Header()
-            Hero()
             
-            TextField("Search menu", text: $searchText)
+            Hero()
+                .overlay(alignment: .bottom) {
+                    TextField("Search menu", text: $searchText)
+                        .disableAutocorrection(true)
+                        .textFieldStyle(.roundedBorder)
+                        .padding()
+                }
+  
+            MenuBreakdown()
             
             FetchedObjects(predicate: buildPredicate(), sortDescriptors: buildSortDescriptors()) { (dishes: [Dish]) in
                 List {
@@ -28,7 +35,9 @@ struct Menu: View {
                             Text(dish.price ?? "")
                             
                             AsyncImage(url: URL(string: dish.image ?? "")) { image in
-                                 image.resizable()
+                                 image
+                                    .resizable()
+                                    //.aspectRatio(contentMode: .fit)
                             } placeholder: {
                                 ProgressView()
                             }

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A2049E4229992A6E00E7055C /* MenuBreakdown.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2049E4129992A6E00E7055C /* MenuBreakdown.swift */; };
 		A2390A48299805DD00F100F6 /* Karla-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A2390A47299805DD00F100F6 /* Karla-Medium.ttf */; };
 		A2390A4A2998061400F100F6 /* Karla-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A2390A492998061400F100F6 /* Karla-ExtraBold.ttf */; };
 		A2390A4C2998062B00F100F6 /* Karla-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A2390A4B2998062B00F100F6 /* Karla-Bold.ttf */; };
@@ -30,6 +31,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		A2049E4129992A6E00E7055C /* MenuBreakdown.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuBreakdown.swift; sourceTree = "<group>"; };
 		A2390A47299805DD00F100F6 /* Karla-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Karla-Medium.ttf"; sourceTree = "<group>"; };
 		A2390A492998061400F100F6 /* Karla-ExtraBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Karla-ExtraBold.ttf"; sourceTree = "<group>"; };
 		A2390A4B2998062B00F100F6 /* Karla-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Karla-Bold.ttf"; sourceTree = "<group>"; };
@@ -105,6 +107,7 @@
 				A2FA9BC129966F7100843F85 /* Menu.swift */,
 				A2D04BCA2997E20D008E2F1B /* Header.swift */,
 				A2D04BCC2997EA92008E2F1B /* Hero.swift */,
+				A2049E4129992A6E00E7055C /* MenuBreakdown.swift */,
 				A283005D2996CA69008F7177 /* MenuList.swift */,
 				A283005F2996CA7C008F7177 /* MenuItem.swift */,
 				A28300612996DFDA008F7177 /* ExampleDatabase.xcdatamodeld */,
@@ -202,6 +205,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A26BE25F2997987D00F8CCC6 /* Persistence.swift in Sources */,
+				A2049E4229992A6E00E7055C /* MenuBreakdown.swift in Sources */,
 				A2A47F2A29952E330037375D /* Onboarding.swift in Sources */,
 				A2FA9BC029966EEA00843F85 /* Home.swift in Sources */,
 				A283005E2996CA69008F7177 /* MenuList.swift in Sources */,

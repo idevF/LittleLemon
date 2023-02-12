@@ -26,6 +26,7 @@ struct Hero: View {
                     .font(.custom("Karla-Medium", size: 18))
                     .foregroundColor(Color("highlightOne"))
 //                    .multilineTextAlignment(.leading)
+                    .frame(width: 230, height: 150)
                 
                 Image("Hero image")
                     .resizable()
@@ -33,6 +34,12 @@ struct Hero: View {
                     .frame(width: 150, height: 150)
                     .clipShape(RoundedRectangle(cornerRadius: 16))
             }
+            
+            Text("")
+            Text("")
+//            Spacer()
+//            Spacer()
+//            Spacer()
         }
         .padding()
         .background(Color("primaryOne"))
