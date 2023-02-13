@@ -12,7 +12,7 @@ struct Onboarding: View {
     
     var body: some View {
         NavigationView {
-            VStack {
+            VStack(spacing: 20) {
                 Image("littleLemon")
                     .resizable()
                     .aspectRatio(contentMode: .fit)
@@ -22,6 +22,12 @@ struct Onboarding: View {
                     EmptyView()
                 }
                 RegistrationForm(isLoggedIn: $isLoggedIn)
+                Spacer()
+            }
+            .onAppear {
+                if UserDefaults.standard.bool(forKey: keyIsLoggedIn) {
+                    isLoggedIn = true
+                }
             }
         }
     }

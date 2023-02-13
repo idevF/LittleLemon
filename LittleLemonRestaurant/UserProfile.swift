@@ -8,11 +8,8 @@
 import SwiftUI
 
 struct UserProfile: View {
-//    @Environment(\.presentationMode) var presentation
-//    
-//    private let userFirstName = UserDefaults.standard.string(forKey: keyFirstName) ?? ""
-//    private let userLastName = UserDefaults.standard.string(forKey: keyLastName) ?? ""
-//    private let userEmail = UserDefaults.standard.string(forKey: keyEmail) ?? ""
+    @Environment(\.presentationMode) var presentation
+
     @State private var isLoggedIn = true
     
     var body: some View {
@@ -50,6 +47,32 @@ struct UserProfile: View {
             }
             
             RegistrationForm(isLoggedIn: $isLoggedIn)
+            // logout button should be placed in this view to logout to on boarding page succesfully
+            Button("Log out") {
+                UserDefaults.standard.set(false, forKey: keyIsLoggedIn)
+                self.presentation.wrappedValue.dismiss()
+            }
+            .frame(maxWidth: .infinity, maxHeight: 50)
+            .font(.custom("MarkaziText-Regular", size: 22))
+            .foregroundColor(Color("highlightTwo"))
+            .background(Color("primaryTwo").cornerRadius(8))
+            
+            HStack(spacing: 30) {
+                Spacer()
+                Button("Discard changes") { }
+                    .frame(width: 150, height: 40)
+                    .font(.custom("MarkaziText-Regular", size: 22))
+                    .foregroundColor(Color("primaryOne"))
+                    .background(Color("highlightOne").cornerRadius(8))
+                    
+                Button("Save changes") { }
+                    .frame(width: 150, height: 40)
+                    .font(.custom("MarkaziText-Regular", size: 22))
+                    .foregroundColor(Color("highlightOne"))
+                    .background(Color("primaryOne").cornerRadius(8))
+                Spacer()
+                    
+            }
             
             Spacer()
             

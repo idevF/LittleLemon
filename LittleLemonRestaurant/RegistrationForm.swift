@@ -12,9 +12,7 @@ let keyLastName = "lastnamekey"
 let keyEmail = "emailkey"
 let keyIsLoggedIn = "keyisloggedin"
 
-struct RegistrationForm: View {
-    @Environment(\.presentationMode) var presentation
-    
+struct RegistrationForm: View {    
     @State private var firstName = ""
     @State private var lastName = ""
     @State private var email = ""
@@ -22,24 +20,25 @@ struct RegistrationForm: View {
     @Binding var isLoggedIn: Bool
     @State private var errorMessage = ""
     @State private var showInvalidMessage = false
-    
+
     var body: some View {
         VStack(spacing: 30) {
             VStack(alignment: .leading, spacing: 5) {
-                Text("First name").font(.custom("MarkaziText-Regular", size: 20))
-                TextField("First Name", text: $firstName)
+                Text("First name")
+                    .font(.custom("MarkaziText-Regular", size: 20))
+                TextField(isLoggedIn ? (UserDefaults.standard.string(forKey: keyFirstName) ?? "") : "First Name", text: $firstName)
                     .textFieldStyle(.roundedBorder)
                     .font(.custom("MarkaziText-Regular", size: 22))
             }
             VStack(alignment: .leading, spacing: 5) {
                 Text("Last name").font(.custom("MarkaziText-Regular", size: 20))
-                TextField("Last Name", text: $lastName)
+                TextField(isLoggedIn ? (UserDefaults.standard.string(forKey: keyLastName) ?? "") : "Last Name", text: $lastName)
                     .textFieldStyle(.roundedBorder)
                     .font(.custom("MarkaziText-Regular", size: 22))
             }
             VStack(alignment: .leading, spacing: 5) {
                 Text("Email").font(.custom("MarkaziText-Regular", size: 20))
-                TextField("Email", text: $email)
+                TextField(isLoggedIn ? (UserDefaults.standard.string(forKey: keyEmail) ?? "") : "Email", text: $email)
                     .textFieldStyle(.roundedBorder)
                     .font(.custom("MarkaziText-Regular", size: 22))
                     .keyboardType(.emailAddress)
@@ -57,46 +56,12 @@ struct RegistrationForm: View {
                     .foregroundColor(Color("highlightOne"))
                     .background(Color("primaryOne").cornerRadius(8))
             }
-            
-            if isLoggedIn {
-                Button("Log out") {
-                    UserDefaults.standard.set(false, forKey: keyIsLoggedIn)
-                    isLoggedIn = false
-                    self.presentation.wrappedValue.dismiss()
-                }
-                .frame(maxWidth: .infinity, maxHeight: 50)
-                .font(.custom("MarkaziText-Regular", size: 22))
-                .foregroundColor(Color("highlightTwo"))
-                .background(Color("primaryTwo").cornerRadius(8))
-                
-                HStack(spacing: 30) {
-                    Spacer()
-                    Button("Discard changes") { }
-                        .frame(width: 150, height: 40)
-                        .font(.custom("MarkaziText-Regular", size: 22))
-                        .foregroundColor(Color("primaryOne"))
-                        .background(Color("highlightOne").cornerRadius(8))
-                        
-                    Button("Save changes") { }
-                        .frame(width: 150, height: 40)
-                        .font(.custom("MarkaziText-Regular", size: 22))
-                        .foregroundColor(Color("highlightOne"))
-                        .background(Color("primaryOne").cornerRadius(8))
-                    Spacer()
-                        
-                }
-            }
 
         }
         .alert("ERROR !", isPresented: $showInvalidMessage) {
             Button("OK", role: .cancel) { }
         } message: {
             Text(self.errorMessage)
-        }
-        .onAppear {
-            if UserDefaults.standard.bool(forKey: keyIsLoggedIn) {
-                isLoggedIn = true
-            }
         }
     }
     
