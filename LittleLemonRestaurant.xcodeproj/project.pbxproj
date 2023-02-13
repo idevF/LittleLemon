@@ -25,6 +25,7 @@
 		A2A47F2A29952E330037375D /* Onboarding.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2A47F2929952E330037375D /* Onboarding.swift */; };
 		A2D04BCB2997E20D008E2F1B /* Header.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2D04BCA2997E20D008E2F1B /* Header.swift */; };
 		A2D04BCD2997EA92008E2F1B /* Hero.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2D04BCC2997EA92008E2F1B /* Hero.swift */; };
+		A2F134F6299AC3000031FD53 /* RegistrationForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2F134F5299AC3000031FD53 /* RegistrationForm.swift */; };
 		A2FA9BC029966EEA00843F85 /* Home.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2FA9BBF29966EEA00843F85 /* Home.swift */; };
 		A2FA9BC229966F7100843F85 /* Menu.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2FA9BC129966F7100843F85 /* Menu.swift */; };
 		A2FA9BC429967EA800843F85 /* UserProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2FA9BC329967EA800843F85 /* UserProfile.swift */; };
@@ -51,6 +52,7 @@
 		A2A47F2929952E330037375D /* Onboarding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Onboarding.swift; sourceTree = "<group>"; };
 		A2D04BCA2997E20D008E2F1B /* Header.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Header.swift; sourceTree = "<group>"; };
 		A2D04BCC2997EA92008E2F1B /* Hero.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Hero.swift; sourceTree = "<group>"; tabWidth = 4; usesTabs = 0; wrapsLines = 1; };
+		A2F134F5299AC3000031FD53 /* RegistrationForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationForm.swift; sourceTree = "<group>"; };
 		A2FA9BBF29966EEA00843F85 /* Home.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Home.swift; sourceTree = "<group>"; };
 		A2FA9BC129966F7100843F85 /* Menu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Menu.swift; sourceTree = "<group>"; };
 		A2FA9BC329967EA800843F85 /* UserProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfile.swift; sourceTree = "<group>"; };
@@ -102,6 +104,7 @@
 				A2390A4F2998097700F100F6 /* Info.plist */,
 				A25C95B5299511DF00FC73E3 /* LittleLemonRestaurantApp.swift */,
 				A2A47F2929952E330037375D /* Onboarding.swift */,
+				A2F134F5299AC3000031FD53 /* RegistrationForm.swift */,
 				A2FA9BC329967EA800843F85 /* UserProfile.swift */,
 				A2FA9BBF29966EEA00843F85 /* Home.swift */,
 				A2FA9BC129966F7100843F85 /* Menu.swift */,
@@ -212,6 +215,7 @@
 				A28300632996DFDA008F7177 /* ExampleDatabase.xcdatamodeld in Sources */,
 				A2D04BCB2997E20D008E2F1B /* Header.swift in Sources */,
 				A2FA9BC429967EA800843F85 /* UserProfile.swift in Sources */,
+				A2F134F6299AC3000031FD53 /* RegistrationForm.swift in Sources */,
 				A28300602996CA7C008F7177 /* MenuItem.swift in Sources */,
 				A2FA9BC229966F7100843F85 /* Menu.swift in Sources */,
 				A26BE2602997987D00F8CCC6 /* FetchedObjects.swift in Sources */,
