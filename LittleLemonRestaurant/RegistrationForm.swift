@@ -34,22 +34,27 @@ struct RegistrationForm: View {
             // Textfield blocks
             VStack(alignment: .leading, spacing: 5) {
                 Text("First name")
-                    .font(.custom("MarkaziText-Regular", size: 20))
+                    .font(.custom("Karla-Regular", size: 16))
+                    .foregroundColor(Color.gray)
                 TextField(isLoggedIn ? firstNameLabel : "First Name", text: $firstName)
                     .textFieldStyle(.roundedBorder)
-                    .font(.custom("MarkaziText-Regular", size: 22))
+                    .font(.custom("Karla-Bold", size: 16))
             }
             VStack(alignment: .leading, spacing: 5) {
-                Text("Last name").font(.custom("MarkaziText-Regular", size: 20))
+                Text("Last name")
+                    .font(.custom("Karla-Regular", size: 16))
+                    .foregroundColor(Color.gray)
                 TextField(isLoggedIn ? lastNameLabel : "Last Name", text: $lastName)
                     .textFieldStyle(.roundedBorder)
-                    .font(.custom("MarkaziText-Regular", size: 22))
+                    .font(.custom("Karla-Bold", size: 16))
             }
             VStack(alignment: .leading, spacing: 5) {
-                Text("Email").font(.custom("MarkaziText-Regular", size: 20))
+                Text("Email")
+                    .font(.custom("Karla-Regular", size: 16))
+                    .foregroundColor(Color.gray)
                 TextField(isLoggedIn ? emailLabel : "Email", text: $email)
                     .textFieldStyle(.roundedBorder)
-                    .font(.custom("MarkaziText-Regular", size: 22))
+                    .font(.custom("Karla-Bold", size: 16))
                     .keyboardType(.emailAddress)
                     .textContentType(.emailAddress)
                     .disableAutocorrection(true)
@@ -71,8 +76,8 @@ struct RegistrationForm: View {
 //                    print(isLoggedIn)
 //                    print(UserDefaults.standard.bool(forKey: keyIsLoggedIn))
                 }
-                .frame(width: 150, height: 40)
-                .font(.custom("MarkaziText-Regular", size: 22))
+                .frame(width: 160, height: 45)
+                .font(.custom("Karla-Bold", size: 16))
                 .foregroundColor(Color("highlightOne"))
                 .background(Color("primaryOne").cornerRadius(8))
             }
@@ -87,8 +92,8 @@ struct RegistrationForm: View {
                         lastName = lastNameLabel
                         email = emailLabel
                     }
-                    .frame(width: 150, height: 40)
-                    .font(.custom("MarkaziText-Regular", size: 22))
+                    .frame(width: 160, height: 45)
+                    .font(.custom("Karla-Bold", size: 16))
                     .foregroundColor(Color("primaryOne"))
                     .background(Color("highlightOne").cornerRadius(8))
 
@@ -101,8 +106,8 @@ struct RegistrationForm: View {
                             UserDefaults.standard.set(email, forKey: keyEmail)
                         }
                     }
-                    .frame(width: 150, height: 40)
-                    .font(.custom("MarkaziText-Regular", size: 22))
+                    .frame(width: 160, height: 45)
+                    .font(.custom("Karla-Bold", size: 16))
                     .foregroundColor(Color("highlightOne"))
                     .background(Color("primaryOne").cornerRadius(8))
                     .alert("NOTIFY !", isPresented: $isSaved) {

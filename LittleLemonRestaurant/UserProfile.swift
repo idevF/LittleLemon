@@ -13,16 +13,16 @@ struct UserProfile: View {
     @State private var isLoggedIn = true
     
     var body: some View {
-        VStack(alignment: .leading, spacing: 30) {
+        VStack(spacing: 30) {
             Header()
             Text("Personal Information")
-                .font(.custom("MarkaziText-Regular", size: 30))
+                .font(.custom("Karla-Bold", size: 20))
                 .foregroundColor(Color("highlightTwo"))
             
             HStack(spacing: 20) {
                 VStack(alignment: .leading, spacing: 0) {
                     Text("Avatar")
-                        .font(.custom("MarkaziText-Regular", size: 20))
+                        .font(.custom("Karla-Regular", size: 16))
                         .foregroundColor(Color.gray)
                     Image("profile-image-placeholder")
                         .resizable()
@@ -32,14 +32,14 @@ struct UserProfile: View {
                 }
                 // avatar buttons
                 Button("Change") { }
-                    .frame(width: 100, height: 40)
-                    .font(.custom("MarkaziText-Regular", size: 22))
+                    .frame(width: 90, height: 45)
+                    .font(.custom("Karla-Bold", size: 16))
                     .foregroundColor(Color("highlightOne"))
                     .background(Color("primaryOne").cornerRadius(8))
                 
                 Button("Remove") { }
-                    .frame(width: 100, height: 40)
-                    .font(.custom("MarkaziText-Regular", size: 22))
+                    .frame(width: 90, height: 45)
+                    .font(.custom("Karla-Bold", size: 16))
                     .foregroundColor(Color("primaryOne"))
                     .border(Color("primaryOne"))
                 
@@ -57,8 +57,8 @@ struct UserProfile: View {
                 isLoggedIn = false
                 self.presentation.wrappedValue.dismiss() // dismiss from this view to main navigation view
             }
-            .frame(maxWidth: .infinity, maxHeight: 50)
-            .font(.custom("MarkaziText-Regular", size: 22))
+            .frame(maxWidth: .infinity, maxHeight: 45)
+            .font(.custom("Karla-Bold", size: 16))
             .foregroundColor(Color("highlightTwo"))
             .background(Color("primaryTwo").cornerRadius(8))
             

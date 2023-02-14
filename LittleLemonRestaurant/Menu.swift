@@ -24,22 +24,28 @@ struct Menu: View {
             FetchedObjects(predicate: buildPredicate(), sortDescriptors: buildSortDescriptors()) { (dishes: [Dish]) in
                 List {
                     ForEach(dishes) { dish in
-                        HStack(alignment: .center, spacing: 20) {
-                            VStack(alignment: .leading) {
+                        HStack(alignment: .center, spacing: 10) {
+                            VStack(alignment: .leading, spacing: 10) {
                                 Text(dish.title ?? "")
+                                    .font(.custom("Karla-Bold", size: 18))
+                                    .foregroundColor(Color("highlightTwo"))
                                 Text(dish.explanation ?? "")
+                                    .font(.custom("Karla-Regular", size: 16))
+                                    .foregroundColor(Color("primaryOne"))
                                     .lineLimit(2)
-                                Text(dish.price ?? "")
+                                Text("$" + String(dish.price ?? ""))
+                                    .font(.custom("Karla-Medium", size: 16))
+                                    .foregroundColor(Color("primaryOne"))
                             }
                             Spacer()
                             AsyncImage(url: URL(string: dish.image ?? "")) { image in
                                  image
                                     .resizable()
-                                    .aspectRatio(contentMode: .fit)
+                                    .aspectRatio(contentMode: .fill)
                             } placeholder: {
                                 ProgressView()
                             }
-                            .frame(width: 80, height: 80)
+                            .frame(width: 60, height: 60)
                         }
                     }
                 }

@@ -9,9 +9,9 @@ import SwiftUI
 
 struct MenuBreakdown: View {
     var body: some View {
-        VStack(alignment: .leading) {
+        VStack(alignment: .leading, spacing: 20) {
             Text("ORDER FOR DELIVERY!")
-                .font(.custom("Karla-Bold", size: 28))
+                .font(.custom("Karla-ExtraBold", size: 20))
                 .foregroundColor(Color("highlightTwo"))
                   
             HStack {
@@ -20,12 +20,14 @@ struct MenuBreakdown: View {
                 Button("Desserts") { }
                 Button("Drinks") { }
             }
-            .font(.custom("MarkaziText-Regular", size: 22))
+            .font(.custom("Karla-ExtraBold", size: 16))
             .foregroundColor(Color("primaryOne"))
             .tint(Color("highlightTwo"))
             .buttonStyle(.bordered)
-            .buttonBorderShape(.roundedRectangle(radius: 15))
-        }
+            .buttonBorderShape(.roundedRectangle(radius: 12))
+
+            Divider()
+        }.padding()
     }
 }
 
