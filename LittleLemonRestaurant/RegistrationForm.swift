@@ -99,7 +99,7 @@ struct RegistrationForm: View {
         //print(firstName)
     }
     
-    func isValid(name: String) -> Bool {
+    private func isValid(name: String) -> Bool {
         guard !name.isEmpty, name.count > 2 else { return false }
         for chr in name {
             if (!(chr >= "a" && chr <= "z") && !(chr >= "A" && chr <= "Z") && !(chr == " ") ) {
@@ -109,7 +109,7 @@ struct RegistrationForm: View {
         return true
     }
     
-    func isValid(email: String) -> Bool {
+    private func isValid(email: String) -> Bool {
         guard !email.isEmpty else { return false }
         let emailValidationRegex = "^[\\p{L}0-9!#$%&'*+\\/=?^_`{|}~-][\\p{L}0-9.!#$%&'*+\\/=?^_`{|}~-]{0,63}@[\\p{L}0-9-]+(?:\\.[\\p{L}0-9-]{2,7})*$"
         let emailValidationPredicate = NSPredicate(format: "SELF MATCHES %@", emailValidationRegex)

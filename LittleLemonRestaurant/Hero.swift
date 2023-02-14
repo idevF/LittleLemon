@@ -8,6 +8,10 @@
 import SwiftUI
 
 struct Hero: View {
+    @Environment(\.presentationMode) var presentation // required for to disable searchbox after logout
+    
+    @Binding var searchText: String
+
     var body: some View {
         VStack(alignment: .leading, spacing: 10) {
             Text("Little Lemon")
@@ -34,8 +38,11 @@ struct Hero: View {
                     .clipShape(RoundedRectangle(cornerRadius: 16))
             }
             
-            Text("")
-            Text("")
+            if UserDefaults.standard.bool(forKey: keyIsLoggedIn) == true {
+                TextField("Search menu", text: $searchText)
+                    .disableAutocorrection(true)
+                    .textFieldStyle(.roundedBorder)
+            }
         }
         .padding()
         .background(Color("primaryOne"))
@@ -45,6 +52,6 @@ struct Hero: View {
 
 struct Hero_Previews: PreviewProvider {
     static var previews: some View {
-        Hero()
+        Hero(searchText: Binding.constant(""))
     }
 }

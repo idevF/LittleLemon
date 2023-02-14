@@ -11,19 +11,13 @@ import CoreData
 struct Menu: View {
     @Environment(\.managedObjectContext) private var viewContext
     
-    @State var searchText = ""
+    @State private var searchText = ""
     
     var body: some View {
         VStack {
             Header()
             
-            Hero()
-                .overlay(alignment: .bottom) {
-                    TextField("Search menu", text: $searchText)
-                        .disableAutocorrection(true)
-                        .textFieldStyle(.roundedBorder)
-                        .padding()
-                }
+            Hero(searchText: $searchText)
   
             MenuBreakdown()
             

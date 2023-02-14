@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct UserProfile: View {
-    @Environment(\.presentationMode) var presentation
+    @Environment(\.presentationMode) var presentation // required to dismiss from this view to main navigation view
 
     @State private var isLoggedIn = true
     
@@ -50,7 +50,7 @@ struct UserProfile: View {
             // logout button should be placed in this view to logout to on boarding page succesfully
             Button("Log out") {
                 UserDefaults.standard.set(false, forKey: keyIsLoggedIn)
-                self.presentation.wrappedValue.dismiss()
+                self.presentation.wrappedValue.dismiss() // dismiss from this view to main navigation view
             }
             .frame(maxWidth: .infinity, maxHeight: 50)
             .font(.custom("MarkaziText-Regular", size: 22))

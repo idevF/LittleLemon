@@ -9,6 +9,7 @@ import SwiftUI
 
 struct Onboarding: View {
     @State private var isLoggedIn = false
+    @State var searchText = ""
     
     var body: some View {
         NavigationView {
@@ -17,13 +18,18 @@ struct Onboarding: View {
                     .resizable()
                     .aspectRatio(contentMode: .fit)
                     .frame(width: 200, height: 45)
-                Hero()
+                
+                Hero(searchText: $searchText)
+                
                 NavigationLink(destination: Home(), isActive: $isLoggedIn) {
                     EmptyView()
                 }
+                
                 RegistrationForm(isLoggedIn: $isLoggedIn)
+                
                 Spacer()
             }
+            .padding()
             .onAppear {
                 if UserDefaults.standard.bool(forKey: keyIsLoggedIn) {
                     isLoggedIn = true
