@@ -10,9 +10,11 @@ import SwiftUI
 let keyFirstName = "firstnamekey"
 let keyLastName = "lastnamekey"
 let keyEmail = "emailkey"
-let keyIsLoggedIn = "keyisloggedin"
+let keyIsLoggedIn = "isloggedinkey"
 
-struct RegistrationForm: View {    
+struct RegistrationForm: View {
+    @Environment(\.presentationMode) var presentation
+    
     @State private var firstName = ""
     @State private var lastName = ""
     @State private var email = ""
@@ -20,25 +22,32 @@ struct RegistrationForm: View {
     @Binding var isLoggedIn: Bool
     @State private var errorMessage = ""
     @State private var showInvalidMessage = false
-
+    
+    @State private var isSaved = false
+    
+    @State private var firstNameLabel = UserDefaults.standard.string(forKey: keyFirstName) ?? ""
+    @State private var lastNameLabel = UserDefaults.standard.string(forKey: keyLastName) ?? ""
+    @State private var emailLabel = UserDefaults.standard.string(forKey: keyEmail) ?? ""
+    
     var body: some View {
         VStack(spacing: 30) {
+            // Textfield blocks
             VStack(alignment: .leading, spacing: 5) {
                 Text("First name")
                     .font(.custom("MarkaziText-Regular", size: 20))
-                TextField(isLoggedIn ? (UserDefaults.standard.string(forKey: keyFirstName) ?? "") : "First Name", text: $firstName)
+                TextField(isLoggedIn ? firstNameLabel : "First Name", text: $firstName)
                     .textFieldStyle(.roundedBorder)
                     .font(.custom("MarkaziText-Regular", size: 22))
             }
             VStack(alignment: .leading, spacing: 5) {
                 Text("Last name").font(.custom("MarkaziText-Regular", size: 20))
-                TextField(isLoggedIn ? (UserDefaults.standard.string(forKey: keyLastName) ?? "") : "Last Name", text: $lastName)
+                TextField(isLoggedIn ? lastNameLabel : "Last Name", text: $lastName)
                     .textFieldStyle(.roundedBorder)
                     .font(.custom("MarkaziText-Regular", size: 22))
             }
             VStack(alignment: .leading, spacing: 5) {
                 Text("Email").font(.custom("MarkaziText-Regular", size: 20))
-                TextField(isLoggedIn ? (UserDefaults.standard.string(forKey: keyEmail) ?? "") : "Email", text: $email)
+                TextField(isLoggedIn ? emailLabel : "Email", text: $email)
                     .textFieldStyle(.roundedBorder)
                     .font(.custom("MarkaziText-Regular", size: 22))
                     .keyboardType(.emailAddress)
@@ -46,17 +55,66 @@ struct RegistrationForm: View {
                     .disableAutocorrection(true)
                     .autocapitalization(.none)
             }
-            
-            if !isLoggedIn {
+
+            if UserDefaults.standard.bool(forKey: keyIsLoggedIn) == false {
+                // Register button
                 Button("Register") {
                     checkRegistrationForm()
+                    if isLoggedIn {
+                        UserDefaults.standard.set(firstName, forKey: keyFirstName)
+                        UserDefaults.standard.set(lastName, forKey: keyLastName)
+                        UserDefaults.standard.set(email, forKey: keyEmail)
+                        UserDefaults.standard.set(true, forKey: keyIsLoggedIn)
+                        isSaved = false
+                        self.presentation.wrappedValue.dismiss()
+                    }
+//                    print(isLoggedIn)
+//                    print(UserDefaults.standard.bool(forKey: keyIsLoggedIn))
                 }
+                .frame(width: 150, height: 40)
+                .font(.custom("MarkaziText-Regular", size: 22))
+                .foregroundColor(Color("highlightOne"))
+                .background(Color("primaryOne").cornerRadius(8))
+            }
+            
+            if UserDefaults.standard.bool(forKey: keyIsLoggedIn) == true {
+                HStack(spacing: 30) {
+                    Spacer()
+                    // Discard button
+                    Button("Discard changes") {
+                        isSaved = false
+                        firstName = firstNameLabel
+                        lastName = lastNameLabel
+                        email = emailLabel
+                    }
+                    .frame(width: 150, height: 40)
+                    .font(.custom("MarkaziText-Regular", size: 22))
+                    .foregroundColor(Color("primaryOne"))
+                    .background(Color("highlightOne").cornerRadius(8))
+
+                    // Save button
+                    Button("Save changes") {
+                        checkRegistrationForm()
+                        if isSaved {
+                            UserDefaults.standard.set(firstName, forKey: keyFirstName)
+                            UserDefaults.standard.set(lastName, forKey: keyLastName)
+                            UserDefaults.standard.set(email, forKey: keyEmail)
+                        }
+                    }
                     .frame(width: 150, height: 40)
                     .font(.custom("MarkaziText-Regular", size: 22))
                     .foregroundColor(Color("highlightOne"))
                     .background(Color("primaryOne").cornerRadius(8))
+                    .alert("NOTIFY !", isPresented: $isSaved) {
+                        Button("OK", role: .cancel) { }
+                    } message: {
+                        Text("Personal Information has changed.")
+                    }
+                    
+                    Spacer()
+                }
             }
-
+            
         }
         .alert("ERROR !", isPresented: $showInvalidMessage) {
             Button("OK", role: .cancel) { }
@@ -89,14 +147,11 @@ struct RegistrationForm: View {
             showInvalidMessage.toggle()
             return
         }
-        // if the textfields have valid values, then proceed
-        
-        UserDefaults.standard.set(firstName, forKey: keyFirstName)
-        UserDefaults.standard.set(lastName, forKey: keyLastName)
-        UserDefaults.standard.set(email, forKey: keyEmail)
-        UserDefaults.standard.set(true, forKey: keyIsLoggedIn)
+
         isLoggedIn = true
         //print(firstName)
+        isSaved = true
+//        self.presentation.wrappedValue.dismiss()
     }
     
     private func isValid(name: String) -> Bool {
