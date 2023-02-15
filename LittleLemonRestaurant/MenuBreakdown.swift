@@ -9,7 +9,7 @@ import SwiftUI
 
 struct MenuBreakdown: View {
     var body: some View {
-        VStack(alignment: .leading, spacing: 20) {
+        VStack(alignment: .leading, spacing: 10) {
             Text("ORDER FOR DELIVERY!")
                 .font(.custom("Karla-ExtraBold", size: 20))
                 .foregroundColor(Color("highlightTwo"))
@@ -27,7 +27,8 @@ struct MenuBreakdown: View {
             .buttonBorderShape(.roundedRectangle(radius: 12))
 
             Divider()
-        }.padding()
+        }
+        .padding(.horizontal, 30)
     }
 }
 

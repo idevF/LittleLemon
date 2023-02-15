@@ -21,38 +21,42 @@ struct Menu: View {
   
             MenuBreakdown()
             
-            FetchedObjects(predicate: buildPredicate(), sortDescriptors: buildSortDescriptors()) { (dishes: [Dish]) in
-                List {
-                    ForEach(dishes) { dish in
-                        HStack(alignment: .center, spacing: 10) {
-                            VStack(alignment: .leading, spacing: 10) {
-                                Text(dish.title ?? "")
-                                    .font(.custom("Karla-Bold", size: 18))
-                                    .foregroundColor(Color("highlightTwo"))
-                                Text(dish.explanation ?? "")
-                                    .font(.custom("Karla-Regular", size: 16))
-                                    .foregroundColor(Color("primaryOne"))
-                                    .lineLimit(2)
-                                Text("$" + String(dish.price ?? ""))
-                                    .font(.custom("Karla-Medium", size: 16))
-                                    .foregroundColor(Color("primaryOne"))
+            NavigationView {
+                FetchedObjects(predicate: buildPredicate(), sortDescriptors: buildSortDescriptors()) { (dishes: [Dish]) in
+                    List {
+                        ForEach(dishes) { dish in
+                            NavigationLink(destination: DishDetails(dish)) {
+                                HStack(alignment: .center, spacing: 10) {
+                                    VStack(alignment: .leading, spacing: 10) {
+                                        Text(dish.title ?? "")
+                                            .font(.custom("Karla-Bold", size: 18))
+                                            .foregroundColor(Color("highlightTwo"))
+                                        Text(dish.explanation ?? "")
+                                            .font(.custom("Karla-Regular", size: 16))
+                                            .foregroundColor(Color("primaryOne"))
+                                            .lineLimit(2)
+                                        Text("$" + String(dish.price ?? ""))
+                                            .font(.custom("Karla-Medium", size: 16))
+                                            .foregroundColor(Color("primaryOne"))
+                                    }
+                                    Spacer()
+                                    AsyncImage(url: URL(string: dish.image ?? "")) { image in
+                                         image
+                                            .resizable()
+                                            .aspectRatio(contentMode: .fill)
+                                    } placeholder: {
+                                        ProgressView()
+                                    }
+                                    .frame(width: 60, height: 60)
+                                }
                             }
-                            Spacer()
-                            AsyncImage(url: URL(string: dish.image ?? "")) { image in
-                                 image
-                                    .resizable()
-                                    .aspectRatio(contentMode: .fill)
-                            } placeholder: {
-                                ProgressView()
-                            }
-                            .frame(width: 60, height: 60)
                         }
                     }
                 }
-                // makes the list background invisible, default is gray
-                       .scrollContentBackground(.hidden)
             }
-            
+            .padding(.top, -5)
+            // makes the list background invisible, default is gray
+            .scrollContentBackground(.hidden)
         }
         .onAppear {
             getMenuData()
