@@ -7,28 +7,24 @@
 
 import SwiftUI
 
-let keyFirstName = "firstnamekey"
-let keyLastName = "lastnamekey"
-let keyEmail = "emailkey"
-let keyIsLoggedIn = "isloggedinkey"
-
 struct RegistrationForm: View {
-    @Environment(\.presentationMode) var presentation
-    
+//    @Environment(\.presentationMode) var presentation
+
     @State private var firstName = ""
     @State private var lastName = ""
     @State private var email = ""
-    
+
     @Binding var isLoggedIn: Bool
+    
+    @State private var isChecked = false
+    @State private var isSaved = false
     @State private var errorMessage = ""
     @State private var showInvalidMessage = false
-    
-    @State private var isSaved = false
-    
+
     @State private var firstNameLabel = UserDefaults.standard.string(forKey: keyFirstName) ?? ""
     @State private var lastNameLabel = UserDefaults.standard.string(forKey: keyLastName) ?? ""
     @State private var emailLabel = UserDefaults.standard.string(forKey: keyEmail) ?? ""
-    
+
     var body: some View {
         VStack(spacing: 30) {
             // Textfield blocks
@@ -60,21 +56,15 @@ struct RegistrationForm: View {
                     .disableAutocorrection(true)
                     .autocapitalization(.none)
             }
-
-            if UserDefaults.standard.bool(forKey: keyIsLoggedIn) == false {
-                // Register button
+            
+            if !isLoggedIn {
                 Button("Register") {
                     checkRegistrationForm()
-                    if isLoggedIn {
-                        UserDefaults.standard.set(firstName, forKey: keyFirstName)
-                        UserDefaults.standard.set(lastName, forKey: keyLastName)
-                        UserDefaults.standard.set(email, forKey: keyEmail)
+                    if isChecked {
                         UserDefaults.standard.set(true, forKey: keyIsLoggedIn)
-                        isSaved = false
-                        self.presentation.wrappedValue.dismiss()
+                        isLoggedIn = true
+                        isChecked = false
                     }
-//                    print(isLoggedIn)
-//                    print(UserDefaults.standard.bool(forKey: keyIsLoggedIn))
                 }
                 .frame(width: 160, height: 45)
                 .font(.custom("Karla-Bold", size: 16))
@@ -82,28 +72,26 @@ struct RegistrationForm: View {
                 .background(Color("primaryOne").cornerRadius(8))
             }
             
-            if UserDefaults.standard.bool(forKey: keyIsLoggedIn) == true {
+            if isLoggedIn {
                 HStack(spacing: 30) {
                     Spacer()
                     // Discard button
                     Button("Discard changes") {
-                        isSaved = false
-                        firstName = firstNameLabel
-                        lastName = lastNameLabel
-                        email = emailLabel
+                        firstName = "" 
+                        lastName = ""
+                        email = ""
                     }
                     .frame(width: 160, height: 45)
                     .font(.custom("Karla-Bold", size: 16))
                     .foregroundColor(Color("primaryOne"))
                     .background(Color("highlightOne").cornerRadius(8))
-
+                    
                     // Save button
                     Button("Save changes") {
                         checkRegistrationForm()
-                        if isSaved {
-                            UserDefaults.standard.set(firstName, forKey: keyFirstName)
-                            UserDefaults.standard.set(lastName, forKey: keyLastName)
-                            UserDefaults.standard.set(email, forKey: keyEmail)
+                        if isChecked {
+                            isSaved = true
+                            isChecked = false
                         }
                     }
                     .frame(width: 160, height: 45)
@@ -113,18 +101,23 @@ struct RegistrationForm: View {
                     .alert("NOTIFY !", isPresented: $isSaved) {
                         Button("OK", role: .cancel) { }
                     } message: {
-                        Text("Personal Information has changed.")
+                        Text("Personal information has changed.")
                     }
-                    
+
                     Spacer()
                 }
             }
-            
         }
         .alert("ERROR !", isPresented: $showInvalidMessage) {
             Button("OK", role: .cancel) { }
         } message: {
             Text(self.errorMessage)
+        }
+        .onDisappear {
+            firstName = ""
+//            lastName = ""
+//            email = ""
+            isSaved = false
         }
     }
     
@@ -136,29 +129,30 @@ struct RegistrationForm: View {
             if firstName.isEmpty || !isValid(name: firstName) {
                 invalidFirstNameMessage = "First Name can only contain letters and must have at least 3 characters\n\n"
             }
-            
+
             var invalidLastNameMessage = ""
             if lastName.isEmpty || !isValid(name: lastName) {
                 invalidLastNameMessage = "Last Name can only contain letters and must have at least 3 characters\n\n"
             }
-            
+
             var invalidEmailMessage = ""
             if email.isEmpty || !isValid(email: email) {
                 invalidEmailMessage = "The e-mail is invalid and cannot be blank."
             }
-            
+
             self.errorMessage = "Found these errors in the form:\n\n \(invalidFirstNameMessage)\(invalidLastNameMessage)\(invalidEmailMessage)"
-            
+
             showInvalidMessage.toggle()
             return
         }
-
-        isLoggedIn = true
-        //print(firstName)
-        isSaved = true
-//        self.presentation.wrappedValue.dismiss()
+        
+        UserDefaults.standard.set(firstName, forKey: keyFirstName)
+        UserDefaults.standard.set(lastName, forKey: keyLastName)
+        UserDefaults.standard.set(email, forKey: keyEmail)
+        
+        isChecked = true
     }
-    
+
     private func isValid(name: String) -> Bool {
         guard !name.isEmpty, name.count > 2 else { return false }
         for chr in name {
@@ -168,7 +162,7 @@ struct RegistrationForm: View {
         }
         return true
     }
-    
+
     private func isValid(email: String) -> Bool {
         guard !email.isEmpty else { return false }
         let emailValidationRegex = "^[\\p{L}0-9!#$%&'*+\\/=?^_`{|}~-][\\p{L}0-9.!#$%&'*+\\/=?^_`{|}~-]{0,63}@[\\p{L}0-9-]+(?:\\.[\\p{L}0-9-]{2,7})*$"

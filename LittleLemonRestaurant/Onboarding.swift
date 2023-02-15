@@ -5,6 +5,11 @@
 //  Created by idevF on 9.02.2023.
 //
 
+let keyFirstName = "firstnamekey"
+let keyLastName = "lastnamekey"
+let keyEmail = "emailkey"
+let keyIsLoggedIn = "isloggedinkey"
+
 import SwiftUI
 
 struct Onboarding: View {
@@ -26,7 +31,7 @@ struct Onboarding: View {
                 }
                 
                 RegistrationForm(isLoggedIn: $isLoggedIn)
-                
+
                 Spacer()
             }
             .padding()
@@ -35,6 +40,7 @@ struct Onboarding: View {
                     isLoggedIn = true
                 }
             }
+            
         }
     }
 }

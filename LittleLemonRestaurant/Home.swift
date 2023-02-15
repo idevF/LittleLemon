@@ -13,10 +13,11 @@ struct Home: View {
     var body: some View {
         TabView {
             Menu()
+                .environment(\.managedObjectContext, persistence.container.viewContext)
                 .tabItem({
                     Label("Menu", systemImage: "list.dash")
                 })
-                .environment(\.managedObjectContext, persistence.container.viewContext)
+
             
             UserProfile()
                 .tabItem({

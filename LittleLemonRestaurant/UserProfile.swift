@@ -11,14 +11,14 @@ struct UserProfile: View {
     @Environment(\.presentationMode) var presentation // required to dismiss from this view to main navigation view
 
     @State private var isLoggedIn = true
-    
+
     var body: some View {
         VStack(spacing: 30) {
             Header()
             Text("Personal Information")
                 .font(.custom("Karla-Bold", size: 20))
                 .foregroundColor(Color("highlightTwo"))
-            
+
             HStack(spacing: 20) {
                 VStack(alignment: .leading, spacing: 0) {
                     Text("Avatar")
@@ -36,23 +36,24 @@ struct UserProfile: View {
                     .font(.custom("Karla-Bold", size: 16))
                     .foregroundColor(Color("highlightOne"))
                     .background(Color("primaryOne").cornerRadius(8))
-                
+
                 Button("Remove") { }
                     .frame(width: 90, height: 45)
                     .font(.custom("Karla-Bold", size: 16))
                     .foregroundColor(Color("primaryOne"))
                     .border(Color("primaryOne"))
-                
+
                 Spacer()
             }
-            
+
             RegistrationForm(isLoggedIn: $isLoggedIn)
-            
-            // logout button should be placed in this view to logout to on boarding page succesfully
+
+            // logout button placed in this view to logout to on boarding page succesfully
             Button("Log out") {
                 UserDefaults.standard.set("", forKey: keyFirstName)
                 UserDefaults.standard.set("", forKey: keyLastName)
                 UserDefaults.standard.set("", forKey: keyEmail)
+                
                 UserDefaults.standard.set(false, forKey: keyIsLoggedIn)
                 isLoggedIn = false
                 self.presentation.wrappedValue.dismiss() // dismiss from this view to main navigation view
@@ -61,9 +62,9 @@ struct UserProfile: View {
             .font(.custom("Karla-Bold", size: 16))
             .foregroundColor(Color("highlightTwo"))
             .background(Color("primaryTwo").cornerRadius(8))
-            
+
             Spacer()
-            
+
         }
         .padding()
     }
