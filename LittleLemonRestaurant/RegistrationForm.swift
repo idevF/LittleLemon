@@ -24,9 +24,14 @@ struct RegistrationForm: View {
     @State private var firstNameLabel = UserDefaults.standard.string(forKey: keyFirstName) ?? ""
     @State private var lastNameLabel = UserDefaults.standard.string(forKey: keyLastName) ?? ""
     @State private var emailLabel = UserDefaults.standard.string(forKey: keyEmail) ?? ""
+    
+    @State private var orderCheckmark = false
+    @State private var passwordCheckmark = false
+    @State private var specialCheckmark = false
+    @State private var newsCheckmark = false
 
     var body: some View {
-        VStack(spacing: 30) {
+        VStack(spacing: 20) {
             // Textfield blocks
             VStack(alignment: .leading, spacing: 5) {
                 Text("First name")
@@ -66,22 +71,65 @@ struct RegistrationForm: View {
                         isChecked = false
                     }
                 }
-                .frame(width: 160, height: 45)
+                .frame(width: 160, height: 40)
                 .font(.custom("Karla-Bold", size: 16))
                 .foregroundColor(Color("highlightOne"))
                 .background(Color("primaryOne").cornerRadius(8))
             }
             
             if isLoggedIn {
+                VStack(alignment: .leading, spacing: 5) {
+                    Text("Email notifications")
+                        .font(.custom("Karla-Bold", size: 18))
+                        .foregroundColor(Color("highlightTwo"))
+                    
+                    HStack {
+                        Image(systemName: orderCheckmark ? "checkmark.square.fill" : "square")
+                            .foregroundColor(orderCheckmark ? Color("primaryOne") : Color.black)
+                        Text("Order statutes")
+                    }
+                    .onTapGesture {
+                        orderCheckmark.toggle()
+                    }
+                    
+                    HStack {
+                        Image(systemName: passwordCheckmark ? "checkmark.square.fill" : "square")
+                            .foregroundColor(passwordCheckmark ? Color("primaryOne") : Color.black)
+                        Text("Password changes")
+                    }
+                    .onTapGesture {
+                        passwordCheckmark.toggle()
+                    }
+                    
+                    HStack {
+                        Image(systemName: specialCheckmark ? "checkmark.square.fill" : "square")
+                            .foregroundColor(specialCheckmark ? Color("primaryOne") : Color.black)
+                        Text("Special offers")
+                    }
+                    .onTapGesture {
+                    specialCheckmark.toggle()
+                    }
+                    
+                    HStack {
+                        Image(systemName: newsCheckmark ? "checkmark.square.fill" : "square")
+                            .foregroundColor(newsCheckmark ? Color("primaryOne") : Color.black)
+                        Text("Newsletter")
+                    }
+                    .onTapGesture {
+                        newsCheckmark.toggle()
+                    }
+                }
+                .font(.custom("Karla-Regular", size: 16))
+                .padding(.trailing, 220)
+                
                 HStack(spacing: 30) {
                     Spacer()
                     // Discard button
                     Button("Discard changes") {
-                        firstName = "" 
-                        lastName = ""
-                        email = ""
+                        firstName = ""; lastName = ""; email = ""
+                        orderCheckmark = false; passwordCheckmark = false; specialCheckmark = false; newsCheckmark = false
                     }
-                    .frame(width: 160, height: 45)
+                    .frame(width: 160, height: 40)
                     .font(.custom("Karla-Bold", size: 16))
                     .foregroundColor(Color("primaryOne"))
                     .background(Color("highlightOne").cornerRadius(8))
@@ -94,11 +142,11 @@ struct RegistrationForm: View {
                             isChecked = false
                         }
                     }
-                    .frame(width: 160, height: 45)
+                    .frame(width: 160, height: 40)
                     .font(.custom("Karla-Bold", size: 16))
                     .foregroundColor(Color("highlightOne"))
                     .background(Color("primaryOne").cornerRadius(8))
-                    .alert("NOTIFY !", isPresented: $isSaved) {
+                    .alert("NOTIFICATION !", isPresented: $isSaved) {
                         Button("OK", role: .cancel) { }
                     } message: {
                         Text("Personal information has changed.")

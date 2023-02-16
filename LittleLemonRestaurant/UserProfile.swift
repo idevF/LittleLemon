@@ -13,7 +13,7 @@ struct UserProfile: View {
     @State private var isLoggedIn = true
 
     var body: some View {
-        VStack(spacing: 30) {
+        VStack(spacing: 20) {
             Header()
             Text("Personal Information")
                 .font(.custom("Karla-Bold", size: 20))
@@ -32,13 +32,13 @@ struct UserProfile: View {
                 }
                 // avatar buttons
                 Button("Change") { }
-                    .frame(width: 90, height: 45)
+                    .frame(width: 90, height: 40)
                     .font(.custom("Karla-Bold", size: 16))
                     .foregroundColor(Color("highlightOne"))
                     .background(Color("primaryOne").cornerRadius(8))
 
                 Button("Remove") { }
-                    .frame(width: 90, height: 45)
+                    .frame(width: 90, height: 40)
                     .font(.custom("Karla-Bold", size: 16))
                     .foregroundColor(Color("primaryOne"))
                     .border(Color("primaryOne"))
@@ -58,13 +58,13 @@ struct UserProfile: View {
                 isLoggedIn = false
                 self.presentation.wrappedValue.dismiss() // dismiss from this view to main navigation view
             }
-            .frame(maxWidth: .infinity, maxHeight: 45)
+            .frame(maxWidth: .infinity, maxHeight: 40)
             .font(.custom("Karla-Bold", size: 16))
             .foregroundColor(Color("highlightTwo"))
             .background(Color("primaryTwo").cornerRadius(8))
-
-            Spacer()
-
+            .overlay( RoundedRectangle(cornerRadius: 8).stroke(Color("secondaryOne"), lineWidth: 2) )
+            
+//            Spacer()
         }
         .padding()
     }
