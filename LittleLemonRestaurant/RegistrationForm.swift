@@ -40,6 +40,7 @@ struct RegistrationForm: View {
                 TextField(isLoggedIn ? firstNameLabel : "First Name", text: $firstName)
                     .textFieldStyle(.roundedBorder)
                     .font(.custom("Karla-Bold", size: 16))
+                    .disableAutocorrection(true)
             }
             VStack(alignment: .leading, spacing: 5) {
                 Text("Last name")
@@ -48,6 +49,7 @@ struct RegistrationForm: View {
                 TextField(isLoggedIn ? lastNameLabel : "Last Name", text: $lastName)
                     .textFieldStyle(.roundedBorder)
                     .font(.custom("Karla-Bold", size: 16))
+                    .disableAutocorrection(true)
             }
             VStack(alignment: .leading, spacing: 5) {
                 Text("Email")

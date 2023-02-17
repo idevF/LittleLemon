@@ -35,13 +35,16 @@ struct DishDetails: View {
                         .foregroundColor(Color("primaryOne"))
                         .lineSpacing(10)
                         .padding(.horizontal, 30)
-                        
                     
-                    Image(dish.image ?? "")
-                        .resizable()
-                        .aspectRatio(contentMode: .fill)
-                        .frame(width: 300, height: 300)
-                        .clipShape(RoundedRectangle(cornerRadius: 20))
+                    AsyncImage(url: URL(string: dish.image ?? "")) { image in
+                         image
+                            .resizable()
+                            .aspectRatio(contentMode: .fill)
+                            .clipShape(RoundedRectangle(cornerRadius: 20))
+                    } placeholder: {
+                        ProgressView()
+                    }
+                    .frame(width: 220, height: 220)
                 }
                 .padding()
             }
@@ -61,9 +64,9 @@ struct DishDetail_Previews: PreviewProvider {
     }
     static func oneDish() -> Dish {
         let dish = Dish(context: context)
-        dish.title = "Lemon Dessert"
-        dish.image = "Lemon dessert"
-        dish.explanation = "Traditional homemade Italian Lemon Ricotta Cake."
+        dish.title = "Pasta"
+        dish.image = "https://github.com/Meta-Mobile-Developer-PC/Working-With-Data-API/blob/main/images/pasta.jpg?raw=true"
+        dish.explanation = "Penne with fried aubergines, cherry tomatoes, tomato sauce, fresh chilli, garlic, basil & salted ricotta cheese."
         return dish
     }
 }

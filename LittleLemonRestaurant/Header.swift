@@ -22,7 +22,8 @@ struct Header: View {
                 .frame(width: 45, height: 45)
                 .clipShape(Circle())
         }
-        .padding()
+        .padding(.horizontal)
+        .padding(.vertical, 5)
     }
 }
 

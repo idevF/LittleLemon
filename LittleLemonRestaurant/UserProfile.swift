@@ -13,7 +13,7 @@ struct UserProfile: View {
     @State private var isLoggedIn = true
 
     var body: some View {
-        VStack(spacing: 20) {
+        VStack(spacing: 30) {
             Header()
             Text("Personal Information")
                 .font(.custom("Karla-Bold", size: 20))
