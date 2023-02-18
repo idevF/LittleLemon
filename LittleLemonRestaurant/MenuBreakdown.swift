@@ -8,32 +8,64 @@
 import SwiftUI
 
 struct MenuBreakdown: View {
+
+    @Binding var categoryName: String
+    @Binding var menuSectionSelection: Bool
+    
+//    private let menuSectionNames = ["starters", "mains", "desserts", "drinks"]
+    
     var body: some View {
         VStack(alignment: .leading, spacing: 10) {
             Text("ORDER FOR DELIVERY!")
                 .font(.custom("Karla-ExtraBold", size: 20))
                 .foregroundColor(Color("highlightTwo"))
                   
-            HStack {
-                Button("Starters") { }
-                Button("Mains") { }
-                Button("Desserts") { }
-                Button("Drinks") { }
+            HStack(spacing: 5) {
+                Button("Menu") {
+                    menuSectionSelection = false
+                }
+                .frame(maxWidth: 80, maxHeight: 30)
+                .background(Color("highlightOne").cornerRadius(8))
+                
+                Button("Starters") {
+                    categoryName = "Starters"
+                    menuSectionSelection = true
+                }
+                .frame(maxWidth: 80, maxHeight: 30)
+                .background(Color("highlightOne").cornerRadius(8))
+                
+                Button("Mains") {
+                    categoryName = "Mains"
+                    menuSectionSelection = true
+                }
+                .frame(maxWidth: 80, maxHeight: 30)
+                .background(Color("highlightOne").cornerRadius(8))
+                
+                Button("Desserts") {
+                    categoryName = "Desserts"
+                    menuSectionSelection = true
+                }
+                .frame(maxWidth: 80, maxHeight: 30)
+                .background(Color("highlightOne").cornerRadius(8))
+                
+                Button("Drinks") {
+                    categoryName = "Drinks"
+                    menuSectionSelection = true
+                }
+                .frame(maxWidth: 80, maxHeight: 30)
+                .background(Color("highlightOne").cornerRadius(8))
             }
-            .font(.custom("Karla-ExtraBold", size: 16))
+            .font(.custom("Karla-Bold", size: 16))
             .foregroundColor(Color("primaryOne"))
-            .tint(Color("highlightTwo"))
-            .buttonStyle(.bordered)
-            .buttonBorderShape(.roundedRectangle(radius: 12))
 
             Divider()
         }
-        .padding(.horizontal, 30)
+        .padding(.horizontal, 10)
     }
 }
 
 struct MenuBreakdown_Previews: PreviewProvider {
     static var previews: some View {
-        MenuBreakdown()
+        MenuBreakdown(categoryName: .constant("main"), menuSectionSelection: .constant(false))
     }
 }

@@ -77,6 +77,7 @@ struct RegistrationForm: View {
                 .font(.custom("Karla-Bold", size: 16))
                 .foregroundColor(Color("highlightOne"))
                 .background(Color("primaryOne").cornerRadius(8))
+//                .disabled(firstName.isEmpty || lastName.isEmpty)
             }
             
             if isLoggedIn {

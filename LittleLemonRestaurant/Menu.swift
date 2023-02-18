@@ -13,6 +13,8 @@ struct Menu: View {
     @Environment(\.managedObjectContext) private var viewContext
     
     @State private var searchText = ""
+    @State private var categoryName = ""
+    @State private var menuSectionSelection = false
     
     var body: some View {
         VStack {
@@ -20,45 +22,48 @@ struct Menu: View {
             
             Hero(searchText: $searchText)
   
-            MenuBreakdown()
+            MenuBreakdown(categoryName: $categoryName, menuSectionSelection: $menuSectionSelection)
             
             NavigationView {
                 FetchedObjects(predicate: buildPredicate(), sortDescriptors: buildSortDescriptors()) { (dishes: [Dish]) in
                     List {
                         ForEach(dishes, id: \.self) { dish in
                             NavigationLink(destination: DishDetails(dish)) {
-                                HStack(alignment: .center, spacing: 10) {
+                                HStack(alignment: .center, spacing: 15) {
                                     VStack(alignment: .leading, spacing: 10) {
                                         Text(dish.title ?? "")
                                             .font(.custom("Karla-Bold", size: 18))
                                             .foregroundColor(Color("highlightTwo"))
+                                        
                                         Text(dish.explanation ?? "")
                                             .font(.custom("Karla-Regular", size: 16))
                                             .foregroundColor(Color("primaryOne"))
+                                            .lineSpacing(3)
                                             .lineLimit(2)
+                                        
                                         Text("$\(Double(dish.price ?? "") ?? 0.0, specifier: "%.2f")")
                                             .font(.custom("Karla-Medium", size: 16))
                                             .foregroundColor(Color("primaryOne"))
                                     }
+                                    
                                     Spacer()
 
                                     AsyncImage(url: URL(string: dish.image ?? "")) { image in
                                          image
                                             .resizable()
-                                            .aspectRatio(contentMode: .fill)
+                                            .scaledToFill()
                                     } placeholder: {
                                         ProgressView()
                                     }
-                                    .frame(width: 60, height: 60)
+                                    .frame(width: 80, height: 80)
                                 }
                             }
                         }
                     }
+                    .listStyle(.plain)
                 }
             }
-            .padding(.top, -5)
-            // makes the list background invisible, default is gray
-            .scrollContentBackground(.hidden)
+            .padding(.top, -8)  // to bring the list up
         }
         .onAppear {
             do {
@@ -69,9 +74,11 @@ struct Menu: View {
     }
 
     private func getMenuData() throws {
-        PersistenceController.shared.clear()
+//        viewContext.reset()
+        
         print(viewContext.hasChanges)
-//        PersistenceController.shared.clear()
+        PersistenceController.shared.clear()
+
         // fetch the menu data from the server
         let menuAddress = "https://raw.githubusercontent.com/Meta-Mobile-Developer-PC/Working-With-Data-API/main/menu.json"
         let menuURL = URL(string: menuAddress)
@@ -135,9 +142,23 @@ struct Menu: View {
        return [NSSortDescriptor(key: "title", ascending: true, selector: #selector(NSString.localizedStandardCompare))]
     }
     
+//    private func buildPredicate() -> NSPredicate {
+//        return searchText == "" ? NSPredicate(value: true) : NSPredicate(format: "title CONTAINS[cd] %@", searchText)
+//    }
+    
     private func buildPredicate() -> NSPredicate {
-        return searchText == "" ? NSPredicate(value: true) : NSPredicate(format: "title CONTAINS[cd] %@", searchText)
+        if searchText == "" && menuSectionSelection == false {
+            return NSPredicate(value: true)
+        }
+        if searchText != "" && menuSectionSelection == false {
+            return NSPredicate(format: "title CONTAINS[cd] %@", searchText)
+        }
+        if searchText == "" && menuSectionSelection == true {
+            return NSPredicate(format: "category CONTAINS[cd] %@", categoryName)
+        }
+        return NSPredicate(value: true)
     }
+    
 }
 
 struct Menu_Previews: PreviewProvider {

@@ -26,15 +26,21 @@ struct Hero: View {
 
             
             HStack(spacing: 20) {
-                Text("We are a family owned Mediterranean restaurant, focused on traditional recipes served with a modern twist.")
+                Text("""
+                    We are a family owned
+                    Mediterranean restaurant,
+                    focused on traditional
+                    recipes served with a
+                    modern twist.
+                    """)
                     .font(.custom("Karla-Medium", size: 18))
                     .foregroundColor(Color("highlightOne"))
-                    .frame(width: 230, height: 150)
+                    .frame(width: 225, height: 120)
                 
                 Image("Hero image")
                     .resizable()
                     .aspectRatio(contentMode: .fill)
-                    .frame(width: 150, height: 150)
+                    .frame(width: 150, height: 120)
                     .clipShape(RoundedRectangle(cornerRadius: 16))
             }
             

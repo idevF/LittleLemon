@@ -17,9 +17,10 @@ struct DishDetails: View {
     var body: some View {
         ZStack {
             Color("highlightOne")
+                .ignoresSafeArea()
             
             ScrollView {
-                VStack(spacing: 30) {
+                VStack(spacing: 25) {
                     Spacer()
                     Image("littleLemon")
                         .resizable()
@@ -33,23 +34,23 @@ struct DishDetails: View {
                     Text(dish.explanation ?? "")
                         .font(.custom("Karla-Medium", size: 20))
                         .foregroundColor(Color("primaryOne"))
-                        .lineSpacing(10)
-                        .padding(.horizontal, 30)
+                        .multilineTextAlignment(.center)
+                        .lineSpacing(5)
+                        .padding(.horizontal, 35)
                     
                     AsyncImage(url: URL(string: dish.image ?? "")) { image in
                          image
                             .resizable()
-                            .aspectRatio(contentMode: .fill)
+                            .scaledToFill()
                             .clipShape(RoundedRectangle(cornerRadius: 20))
                     } placeholder: {
                         ProgressView()
                     }
-                    .frame(width: 220, height: 220)
+                    .frame(width: 230, height: 230)
                 }
                 .padding()
             }
         }
-        .ignoresSafeArea()
     }
 }
 
