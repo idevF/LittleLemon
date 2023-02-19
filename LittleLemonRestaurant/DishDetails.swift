@@ -14,6 +14,8 @@ struct DishDetails: View {
         self.dish = dish
     }
     
+    @State private var showAlert = false
+    
     var body: some View {
         ZStack {
             Color("highlightOne")
@@ -39,7 +41,7 @@ struct DishDetails: View {
                         .padding(.horizontal, 35)
                     
                     AsyncImage(url: URL(string: dish.image ?? "")) { image in
-                         image
+                        image
                             .resizable()
                             .scaledToFill()
                             .clipShape(RoundedRectangle(cornerRadius: 20))
@@ -47,6 +49,18 @@ struct DishDetails: View {
                         ProgressView()
                     }
                     .frame(width: 230, height: 230)
+                    
+                    // Order button
+                    Button("Tap to order") {
+                        showAlert.toggle()
+                    }
+                    .frame(width: 160, height: 40)
+                    .font(.custom("Karla-Bold", size: 16))
+                    .foregroundColor(Color("highlightTwo"))
+                    .background(Color("primaryTwo").cornerRadius(8))
+                    .alert("Order placed, thanks!", isPresented: $showAlert) {
+                        Button("OK", role: .cancel) { }
+                    }
                 }
                 .padding()
             }
@@ -55,9 +69,9 @@ struct DishDetails: View {
 }
 
 struct DishDetail_Previews: PreviewProvider {
-//    static var previews: some View {
-//        DishDetails()
-//    }
+    //    static var previews: some View {
+    //        DishDetails()
+    //    }
     static let context = PersistenceController.shared.container.viewContext
     let dish = Dish(context: context)
     static var previews: some View {

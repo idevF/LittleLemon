@@ -8,19 +8,19 @@
 import SwiftUI
 
 struct RegistrationForm: View {
-//    @Environment(\.presentationMode) var presentation
-
+    //    @Environment(\.presentationMode) var presentation
+    
     @State private var firstName = ""
     @State private var lastName = ""
     @State private var email = ""
-
+    
     @Binding var isLoggedIn: Bool
     
     @State private var isChecked = false
     @State private var isSaved = false
     @State private var errorMessage = ""
     @State private var showInvalidMessage = false
-
+    
     @State private var firstNameLabel = UserDefaults.standard.string(forKey: keyFirstName) ?? ""
     @State private var lastNameLabel = UserDefaults.standard.string(forKey: keyLastName) ?? ""
     @State private var emailLabel = UserDefaults.standard.string(forKey: keyEmail) ?? ""
@@ -38,25 +38,27 @@ struct RegistrationForm: View {
                     .font(.custom("Karla-Regular", size: 16))
                     .foregroundColor(Color.gray)
                 TextField(isLoggedIn ? firstNameLabel : "First Name", text: $firstName)
-                    .textFieldStyle(.roundedBorder)
+                    .textFieldStyle(RoundedBorderTextFieldStyle())
                     .font(.custom("Karla-Bold", size: 16))
                     .disableAutocorrection(true)
             }
+            
             VStack(alignment: .leading, spacing: 5) {
                 Text("Last name")
                     .font(.custom("Karla-Regular", size: 16))
                     .foregroundColor(Color.gray)
                 TextField(isLoggedIn ? lastNameLabel : "Last Name", text: $lastName)
-                    .textFieldStyle(.roundedBorder)
+                    .textFieldStyle(RoundedBorderTextFieldStyle())
                     .font(.custom("Karla-Bold", size: 16))
                     .disableAutocorrection(true)
             }
+            
             VStack(alignment: .leading, spacing: 5) {
                 Text("Email")
                     .font(.custom("Karla-Regular", size: 16))
                     .foregroundColor(Color.gray)
                 TextField(isLoggedIn ? emailLabel : "Email", text: $email)
-                    .textFieldStyle(.roundedBorder)
+                    .textFieldStyle(RoundedBorderTextFieldStyle())
                     .font(.custom("Karla-Bold", size: 16))
                     .keyboardType(.emailAddress)
                     .textContentType(.emailAddress)
@@ -66,7 +68,7 @@ struct RegistrationForm: View {
             
             if !isLoggedIn {
                 Button("Register") {
-                    checkRegistrationForm()
+                    validateRegistrationForm()
                     if isChecked {
                         UserDefaults.standard.set(true, forKey: keyIsLoggedIn)
                         isLoggedIn = true
@@ -77,7 +79,7 @@ struct RegistrationForm: View {
                 .font(.custom("Karla-Bold", size: 16))
                 .foregroundColor(Color("highlightOne"))
                 .background(Color("primaryOne").cornerRadius(8))
-//                .disabled(firstName.isEmpty || lastName.isEmpty)
+                //                .disabled(firstName.isEmpty || lastName.isEmpty)
             }
             
             if isLoggedIn {
@@ -110,7 +112,7 @@ struct RegistrationForm: View {
                         Text("Special offers")
                     }
                     .onTapGesture {
-                    specialCheckmark.toggle()
+                        specialCheckmark.toggle()
                     }
                     
                     HStack {
@@ -139,7 +141,7 @@ struct RegistrationForm: View {
                     
                     // Save button
                     Button("Save changes") {
-                        checkRegistrationForm()
+                        validateRegistrationForm()
                         if isChecked {
                             isSaved = true
                             isChecked = false
@@ -154,7 +156,7 @@ struct RegistrationForm: View {
                     } message: {
                         Text("Personal information has changed.")
                     }
-
+                    
                     Spacer()
                 }
             }
@@ -166,13 +168,16 @@ struct RegistrationForm: View {
         }
         .onDisappear {
             firstName = ""
-//            lastName = ""
-//            email = ""
+            //            lastName = ""
+            //            email = ""
             isSaved = false
         }
     }
+}
+
+extension RegistrationForm {
     
-    private func checkRegistrationForm() {
+    private func validateRegistrationForm() {
         // the textfields have valid values or not
         guard isValid(name: firstName) && isValid(name: lastName) && isValid(email: email)
         else {

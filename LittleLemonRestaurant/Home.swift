@@ -17,7 +17,6 @@ struct Home: View {
                 .tabItem({
                     Label("Menu", systemImage: "list.dash")
                 })
-
             
             UserProfile()
                 .tabItem({

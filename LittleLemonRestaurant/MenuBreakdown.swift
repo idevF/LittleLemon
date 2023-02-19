@@ -8,56 +8,38 @@
 import SwiftUI
 
 struct MenuBreakdown: View {
-
+    
     @Binding var categoryName: String
     @Binding var menuSectionSelection: Bool
     
-//    private let menuSectionNames = ["starters", "mains", "desserts", "drinks"]
+    private let menuSectionNames = ["starters", "mains", "desserts", "drinks"]
     
     var body: some View {
         VStack(alignment: .leading, spacing: 10) {
             Text("ORDER FOR DELIVERY!")
                 .font(.custom("Karla-ExtraBold", size: 20))
                 .foregroundColor(Color("highlightTwo"))
-                  
+            
             HStack(spacing: 5) {
                 Button("Menu") {
+                    categoryName = ""
                     menuSectionSelection = false
                 }
                 .frame(maxWidth: 80, maxHeight: 30)
                 .background(Color("highlightOne").cornerRadius(8))
                 
-                Button("Starters") {
-                    categoryName = "Starters"
-                    menuSectionSelection = true
+                ForEach(menuSectionNames, id: \.self) { name in
+                    Button(name.capitalized) {
+                        categoryName = name
+                        menuSectionSelection = true
+                    }
+                    .frame(maxWidth: 80, maxHeight: 30)
+                    .background(Color("highlightOne").cornerRadius(8))
                 }
-                .frame(maxWidth: 80, maxHeight: 30)
-                .background(Color("highlightOne").cornerRadius(8))
-                
-                Button("Mains") {
-                    categoryName = "Mains"
-                    menuSectionSelection = true
-                }
-                .frame(maxWidth: 80, maxHeight: 30)
-                .background(Color("highlightOne").cornerRadius(8))
-                
-                Button("Desserts") {
-                    categoryName = "Desserts"
-                    menuSectionSelection = true
-                }
-                .frame(maxWidth: 80, maxHeight: 30)
-                .background(Color("highlightOne").cornerRadius(8))
-                
-                Button("Drinks") {
-                    categoryName = "Drinks"
-                    menuSectionSelection = true
-                }
-                .frame(maxWidth: 80, maxHeight: 30)
-                .background(Color("highlightOne").cornerRadius(8))
             }
             .font(.custom("Karla-Bold", size: 16))
             .foregroundColor(Color("primaryOne"))
-
+            
             Divider()
         }
         .padding(.horizontal, 10)

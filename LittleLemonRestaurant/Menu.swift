@@ -21,49 +21,10 @@ struct Menu: View {
             Header()
             
             Hero(searchText: $searchText)
-  
+            
             MenuBreakdown(categoryName: $categoryName, menuSectionSelection: $menuSectionSelection)
             
-            NavigationView {
-                FetchedObjects(predicate: buildPredicate(), sortDescriptors: buildSortDescriptors()) { (dishes: [Dish]) in
-                    List {
-                        ForEach(dishes, id: \.self) { dish in
-                            NavigationLink(destination: DishDetails(dish)) {
-                                HStack(alignment: .center, spacing: 15) {
-                                    VStack(alignment: .leading, spacing: 10) {
-                                        Text(dish.title ?? "")
-                                            .font(.custom("Karla-Bold", size: 18))
-                                            .foregroundColor(Color("highlightTwo"))
-                                        
-                                        Text(dish.explanation ?? "")
-                                            .font(.custom("Karla-Regular", size: 16))
-                                            .foregroundColor(Color("primaryOne"))
-                                            .lineSpacing(3)
-                                            .lineLimit(2)
-                                        
-                                        Text("$\(Double(dish.price ?? "") ?? 0.0, specifier: "%.2f")")
-                                            .font(.custom("Karla-Medium", size: 16))
-                                            .foregroundColor(Color("primaryOne"))
-                                    }
-                                    
-                                    Spacer()
-
-                                    AsyncImage(url: URL(string: dish.image ?? "")) { image in
-                                         image
-                                            .resizable()
-                                            .scaledToFill()
-                                    } placeholder: {
-                                        ProgressView()
-                                    }
-                                    .frame(width: 80, height: 80)
-                                }
-                            }
-                        }
-                    }
-                    .listStyle(.plain)
-                }
-            }
-            .padding(.top, -8)  // to bring the list up
+            dishItemRow
         }
         .onAppear {
             do {
@@ -72,13 +33,57 @@ struct Menu: View {
             catch { print(error) }
         }
     }
+    
+    var dishItemRow: some View {
+        NavigationView {
+            FetchedObjects(predicate: buildPredicate(), sortDescriptors: buildSortDescriptors()) { (dishes: [Dish]) in
+                List {
+                    ForEach(dishes, id: \.self) { dish in
+                        NavigationLink(destination: DishDetails(dish)) {
+                            HStack(alignment: .center, spacing: 15) {
+                                VStack(alignment: .leading, spacing: 10) {
+                                    
+                                    Text(dish.title ?? "")
+                                        .font(.custom("Karla-Bold", size: 18))
+                                        .foregroundColor(Color("highlightTwo"))
+                                    
+                                    Text(dish.explanation ?? "")
+                                        .font(.custom("Karla-Regular", size: 16))
+                                        .foregroundColor(Color("primaryOne"))
+                                        .lineSpacing(3)
+                                        .lineLimit(2)
+                                    
+                                    Text("$\(Double(dish.price ?? "") ?? 0.0, specifier: "%.2f")")
+                                        .font(.custom("Karla-Medium", size: 16))
+                                        .foregroundColor(Color("primaryOne"))
+                                }
+                                
+                                Spacer()
+                                
+                                AsyncImage(url: URL(string: dish.image ?? "")) { image in
+                                    image
+                                        .resizable()
+                                        .scaledToFill()
+                                } placeholder: {
+                                    ProgressView()
+                                }
+                                .frame(width: 80, height: 80)
+                            }
+                        }
+                    }
+                }
+                .listStyle(.plain)
+            }
+        }
+        .padding(.top, -8)  // to bring the list up
+    }
+}
 
+extension Menu {
     private func getMenuData() throws {
-//        viewContext.reset()
-        
-        print(viewContext.hasChanges)
+        //        viewContext.reset()
         PersistenceController.shared.clear()
-
+        
         // fetch the menu data from the server
         let menuAddress = "https://raw.githubusercontent.com/Meta-Mobile-Developer-PC/Working-With-Data-API/main/menu.json"
         let menuURL = URL(string: menuAddress)
@@ -102,49 +107,15 @@ struct Menu: View {
                     newDish.explanation = menuItem.explanation
                     newDish.price = menuItem.price
                 }
-                if viewContext.hasChanges {
-                    print(viewContext.hasChanges)
-                    try? viewContext.save()
-                }
+                try? viewContext.save()
             }
         }
         task.resume()
     }
     
-//    private func getMenuData() {
-//        PersistenceController.shared.clear()
-//
-//        let menuAddress = "https://raw.githubusercontent.com/Meta-Mobile-Developer-PC/Working-With-Data-API/main/menu.json"
-//        let url = URL(string: menuAddress)!
-//
-//        let request = URLRequest(url: url)
-//        let task = URLSession.shared.dataTask(with: request) { data, response, error in
-//            if let data = data, let string = String(data: data, encoding: .utf8) {
-//                print(string)
-//                let decoder = JSONDecoder()
-//                let fullMenu = try? decoder.decode(MenuList.self, from: data)
-//                //print(fullMenu?.menu)
-//                for menuItem in fullMenu!.menu {
-//                    let newDish = Dish(context: viewContext)
-//                    newDish.title = menuItem.title
-//                    newDish.image = menuItem.image
-//                    newDish.category = menuItem.category
-//                    newDish.explanation = menuItem.explanation
-//                    newDish.price = menuItem.price
-//                }
-//                try? viewContext.save()
-//            }
-//        }
-//        task.resume()
-//    }
-    
     private func buildSortDescriptors() -> [NSSortDescriptor] {
-       return [NSSortDescriptor(key: "title", ascending: true, selector: #selector(NSString.localizedStandardCompare))]
+        return [NSSortDescriptor(key: "title", ascending: true, selector: #selector(NSString.localizedStandardCompare))]
     }
-    
-//    private func buildPredicate() -> NSPredicate {
-//        return searchText == "" ? NSPredicate(value: true) : NSPredicate(format: "title CONTAINS[cd] %@", searchText)
-//    }
     
     private func buildPredicate() -> NSPredicate {
         if searchText == "" && menuSectionSelection == false {
@@ -158,7 +129,6 @@ struct Menu: View {
         }
         return NSPredicate(value: true)
     }
-    
 }
 
 struct Menu_Previews: PreviewProvider {

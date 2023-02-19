@@ -9,16 +9,29 @@ import SwiftUI
 
 struct UserProfile: View {
     @Environment(\.presentationMode) var presentation // required to dismiss from this view to main navigation view
-
+    
     @State private var isLoggedIn = true
-
+    
     var body: some View {
         VStack(spacing: 30) {
+            
             Header()
+            
+            avatarSection
+            
+            RegistrationForm(isLoggedIn: $isLoggedIn)
+            
+            logoutButton
+        }
+        .padding()
+    }
+    
+    var avatarSection: some View {
+        VStack {
             Text("Personal Information")
                 .font(.custom("Karla-Bold", size: 20))
                 .foregroundColor(Color("highlightTwo"))
-
+            
             HStack(spacing: 20) {
                 VStack(alignment: .leading, spacing: 0) {
                     Text("Avatar")
@@ -36,37 +49,34 @@ struct UserProfile: View {
                     .font(.custom("Karla-Bold", size: 16))
                     .foregroundColor(Color("highlightOne"))
                     .background(Color("primaryOne").cornerRadius(8))
-
+                
                 Button("Remove") { }
                     .frame(width: 90, height: 40)
                     .font(.custom("Karla-Bold", size: 16))
                     .foregroundColor(Color("primaryOne"))
                     .border(Color("primaryOne"))
-
+                
                 Spacer()
             }
-
-            RegistrationForm(isLoggedIn: $isLoggedIn)
-
-            // logout button placed in this view to logout to on boarding page succesfully
-            Button("Log out") {
-                UserDefaults.standard.set("", forKey: keyFirstName)
-                UserDefaults.standard.set("", forKey: keyLastName)
-                UserDefaults.standard.set("", forKey: keyEmail)
-                
-                UserDefaults.standard.set(false, forKey: keyIsLoggedIn)
-                isLoggedIn = false
-                self.presentation.wrappedValue.dismiss() // dismiss from this view to main navigation view
-            }
-            .frame(maxWidth: .infinity, maxHeight: 40)
-            .font(.custom("Karla-Bold", size: 16))
-            .foregroundColor(Color("highlightTwo"))
-            .background(Color("primaryTwo").cornerRadius(8))
-            .overlay( RoundedRectangle(cornerRadius: 8).stroke(Color("secondaryOne"), lineWidth: 2) )
-            
-//            Spacer()
         }
-        .padding()
+    }
+    
+    var logoutButton: some View {
+        // logout button placed in this view to logout to on boarding page succesfully
+        Button("Log out") {
+            UserDefaults.standard.set("", forKey: keyFirstName)
+            UserDefaults.standard.set("", forKey: keyLastName)
+            UserDefaults.standard.set("", forKey: keyEmail)
+            
+            UserDefaults.standard.set(false, forKey: keyIsLoggedIn)
+            isLoggedIn = false
+            self.presentation.wrappedValue.dismiss() // dismiss from this view to main navigation view
+        }
+        .frame(maxWidth: .infinity, maxHeight: 40)
+        .font(.custom("Karla-Bold", size: 16))
+        .foregroundColor(Color("highlightTwo"))
+        .background(Color("primaryTwo").cornerRadius(8))
+        .overlay( RoundedRectangle(cornerRadius: 8).stroke(Color("secondaryOne"), lineWidth: 2) )
     }
 }
 

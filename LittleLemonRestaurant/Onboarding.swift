@@ -19,6 +19,7 @@ struct Onboarding: View {
     var body: some View {
         NavigationView {
             VStack(spacing: 20) {
+                
                 Image("littleLemon")
                     .resizable()
                     .aspectRatio(contentMode: .fit)
@@ -31,7 +32,7 @@ struct Onboarding: View {
                 }
                 
                 RegistrationForm(isLoggedIn: $isLoggedIn)
-
+                
                 Spacer()
             }
             .padding()
