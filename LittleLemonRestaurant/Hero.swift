@@ -43,7 +43,7 @@ struct Hero: View {
                     .clipShape(RoundedRectangle(cornerRadius: 16))
             }
             
-            if UserDefaults.standard.bool(forKey: keyIsLoggedIn) {
+            if UserDefaults.standard.bool(forKey: keyIsLoggedIn) == true {
                 TextField("Search menu", text: $searchText)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
                     .font(.custom("Karla-Bold", size: 16))

@@ -25,16 +25,14 @@ struct MenuBreakdown: View {
                     categoryName = ""
                     menuSectionSelection = false
                 }
-                .frame(maxWidth: 80, maxHeight: 30)
-                .background(Color("highlightOne").cornerRadius(8))
+                .buttonStyleSix()
                 
                 ForEach(menuSectionNames, id: \.self) { name in
                     Button(name.capitalized) {
                         categoryName = name
                         menuSectionSelection = true
                     }
-                    .frame(maxWidth: 80, maxHeight: 30)
-                    .background(Color("highlightOne").cornerRadius(8))
+                    .buttonStyleSix()
                 }
             }
             .font(.custom("Karla-Bold", size: 16))

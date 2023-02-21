@@ -25,8 +25,8 @@ struct UserProfile: View {
         }
         .padding()
     }
-    
-    var avatarSection: some View {
+    // avatar layer
+    private var avatarSection: some View {
         VStack {
             Text("Personal Information")
                 .font(.custom("Karla-Bold", size: 20))
@@ -45,24 +45,17 @@ struct UserProfile: View {
                 }
                 // avatar buttons
                 Button("Change") { }
-                    .frame(width: 90, height: 40)
-                    .font(.custom("Karla-Bold", size: 16))
-                    .foregroundColor(Color("highlightOne"))
-                    .background(Color("primaryOne").cornerRadius(8))
+                    .buttonStyleThree()
                 
                 Button("Remove") { }
-                    .frame(width: 90, height: 40)
-                    .font(.custom("Karla-Bold", size: 16))
-                    .foregroundColor(Color("primaryOne"))
-                    .border(Color("primaryOne"))
+                    .buttonStyleFour()
                 
                 Spacer()
             }
         }
     }
-    
-    var logoutButton: some View {
-        // logout button placed in this view to logout to on boarding page succesfully
+    // logout button
+    private var logoutButton: some View {
         Button("Log out") {
             UserDefaults.standard.set("", forKey: keyFirstName)
             UserDefaults.standard.set("", forKey: keyLastName)
@@ -72,11 +65,7 @@ struct UserProfile: View {
             isLoggedIn = false
             self.presentation.wrappedValue.dismiss() // dismiss from this view to main navigation view
         }
-        .frame(maxWidth: .infinity, maxHeight: 40)
-        .font(.custom("Karla-Bold", size: 16))
-        .foregroundColor(Color("highlightTwo"))
-        .background(Color("primaryTwo").cornerRadius(8))
-        .overlay( RoundedRectangle(cornerRadius: 8).stroke(Color("secondaryOne"), lineWidth: 2) )
+        .buttonStyleFive()
     }
 }
 

@@ -24,7 +24,7 @@ struct Menu: View {
             
             MenuBreakdown(categoryName: $categoryName, menuSectionSelection: $menuSectionSelection)
             
-            dishItemRow
+            dishItemList
         }
         .onAppear {
             do {
@@ -33,8 +33,8 @@ struct Menu: View {
             catch { print(error) }
         }
     }
-    
-    var dishItemRow: some View {
+    // list view of the fetched menu items
+    private var dishItemList: some View {
         NavigationView {
             FetchedObjects(predicate: buildPredicate(), sortDescriptors: buildSortDescriptors()) { (dishes: [Dish]) in
                 List {
@@ -81,7 +81,7 @@ struct Menu: View {
 
 extension Menu {
     private func getMenuData() throws {
-        //        viewContext.reset()
+        viewContext.reset()
         PersistenceController.shared.clear()
         
         // fetch the menu data from the server
@@ -112,11 +112,11 @@ extension Menu {
         }
         task.resume()
     }
-    
+    // sorting the menu items
     private func buildSortDescriptors() -> [NSSortDescriptor] {
         return [NSSortDescriptor(key: "title", ascending: true, selector: #selector(NSString.localizedStandardCompare))]
     }
-    
+    // logic for the search textfield and the menu category buttons
     private func buildPredicate() -> NSPredicate {
         if searchText == "" && menuSectionSelection == false {
             return NSPredicate(value: true)
