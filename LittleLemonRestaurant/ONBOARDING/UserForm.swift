@@ -16,13 +16,13 @@ struct UserForm {
     var showInvalidMessage: Bool
     var isUserFormValid: Bool
     
-    init(firstName: String = "", lastName: String = "", email: String = "", errorMessage: String = "", showInvalidMessage: Bool = false, isChecked: Bool = false) {
+    init(firstName: String = "", lastName: String = "", email: String = "", errorMessage: String = "", showInvalidMessage: Bool = false, isUserFormValid: Bool = false) {
         self.firstName = firstName
         self.lastName = lastName
         self.email = email
         self.errorMessage = errorMessage
         self.showInvalidMessage = showInvalidMessage
-        self.isUserFormValid = isChecked
+        self.isUserFormValid = isUserFormValid
     }
     
     mutating func validateUserForm() {

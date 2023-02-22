@@ -9,7 +9,7 @@ let keyFirstName = "firstnamekey"
 let keyLastName = "lastnamekey"
 let keyEmail = "emailkey"
 let keyIsLoggedIn = "isloggedinkey"
-let keyNotificationStates = "notificationstateskey"
+let keyNotificationSaved = "notificationsavedkey"
 
 import SwiftUI
 

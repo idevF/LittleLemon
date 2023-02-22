@@ -7,6 +7,12 @@
 
 import SwiftUI
 
+struct SubscribeItem: Identifiable, Codable {
+    var id = UUID()
+    let name: String
+    var isSelected: Bool
+}
+
 struct UserProfile: View {
     @Environment(\.presentationMode) var presentation // required to dismiss from this view to main navigation view
     
@@ -19,8 +25,10 @@ struct UserProfile: View {
     
     @State private var userForm = UserForm()
     
-    private let notificationOptions = ["Order statutes", "Password changes", "Special offers", "Newsletter"]
-    @State private var notificationStates = [false, false, false, false]
+    @State private var subscriptions = [SubscribeItem(name: "Order statutes", isSelected: false),
+                                        SubscribeItem(name: "Password changes", isSelected: false),
+                                        SubscribeItem(name: "Special offers", isSelected: false),
+                                        SubscribeItem(name: "Newsletter", isSelected: false)]
     
     var body: some View {
         VStack(spacing: 20) {
@@ -44,6 +52,7 @@ struct UserProfile: View {
             Text(userForm.errorMessage)
         }
     }
+    
     // avatar layer
     private var avatarSection: some View {
         VStack {
@@ -97,15 +106,15 @@ struct UserProfile: View {
                 .font(.custom("Karla-Bold", size: 18))
                 .foregroundColor(Color("highlightTwo"))
             
-            ForEach(notificationOptions.indices, id: \.self) { index in
+            ForEach($subscriptions) { $notification in
                 HStack {
-                    Image(systemName: notificationStates[index] ? "checkmark.square.fill" : "square")
-                        .foregroundColor(notificationStates[index] ? Color("primaryOne") : Color.black)
-                    Text(notificationOptions[index])
+                    Image(systemName: notification.isSelected ? "checkmark.square.fill" : "square")
+                        .foregroundColor(notification.isSelected  ? Color("primaryOne") : Color.black)
+                    Text(notification.name)
                 }
                 .onTapGesture {
                     withAnimation(.easeInOut(duration: 0.7)) {
-                        notificationStates[index].toggle()
+                        notification.isSelected.toggle()
                     }
                 }
             }
@@ -121,6 +130,11 @@ struct UserProfile: View {
             UserDefaults.standard.set("", forKey: keyLastName)
             UserDefaults.standard.set("", forKey: keyEmail)
             
+            $subscriptions.forEach { $item in
+                item.isSelected = false
+            }
+            UserDefaults.standard.set(try? JSONEncoder().encode(subscriptions), forKey: keyNotificationSaved)
+            
             UserDefaults.standard.set(false, forKey: keyIsLoggedIn)
             isLoggedIn = false
             self.presentation.wrappedValue.dismiss() // dismiss from this view to main navigation view
@@ -135,7 +149,9 @@ struct UserProfile: View {
             // Discard button
             Button("Discard changes") {
                 userForm.firstName = ""; userForm.lastName = ""; userForm.email = ""
-                notificationStates = [false, false, false, false]
+                $subscriptions.forEach { $item in
+                    item.isSelected = false
+                }
             }
             .buttonStyleTwo()
 
@@ -146,13 +162,22 @@ struct UserProfile: View {
                     isSaved = true
                     userForm.isUserFormValid = false
                 }
-                UserDefaults.standard.set(notificationStates, forKey: keyNotificationStates)
+                // save the selected subscriptions via JSON Encoder
+                UserDefaults.standard.set(try? JSONEncoder().encode(subscriptions), forKey: keyNotificationSaved)
+//                print("saved susbscriptions \(subscriptions)")
             }
             .buttonStyleOne()
             .alert("NOTIFICATION !", isPresented: $isSaved) {
                 Button("OK", role: .cancel) { isSaved = false }
             } message: {
                 Text("Personal information has changed.")
+            }
+            // call the saved subscriptions when appears, Decode tha data first and assign it
+            .onAppear {
+                if let data = UserDefaults.standard.value(forKey: keyNotificationSaved) as? Data {
+                    subscriptions = try! JSONDecoder().decode(Array<SubscribeItem>.self, from: data)
+//                    print(subscriptions)
+                }
             }
 
             Spacer()

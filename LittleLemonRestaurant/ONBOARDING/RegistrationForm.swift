@@ -32,8 +32,8 @@ struct RegistrationForm: View {
         }
         .onDisappear {
             userForm.firstName = ""
-//            userForm.lastName = ""
-//            userForm.email = ""
+            userForm.lastName = ""
+            userForm.email = ""
         }
     }
     
