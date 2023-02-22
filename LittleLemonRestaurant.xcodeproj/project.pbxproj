@@ -24,6 +24,7 @@
 		A28300632996DFDA008F7177 /* ExampleDatabase.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = A28300612996DFDA008F7177 /* ExampleDatabase.xcdatamodeld */; };
 		A2A47F2A29952E330037375D /* Onboarding.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2A47F2929952E330037375D /* Onboarding.swift */; };
 		A2BA0A54299D75820032E5B3 /* DishDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2BA0A53299D75820032E5B3 /* DishDetails.swift */; };
+		A2CDCC0829A62BF70031BFEB /* UserForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2CDCC0729A62BF70031BFEB /* UserForm.swift */; };
 		A2D04BCB2997E20D008E2F1B /* Header.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2D04BCA2997E20D008E2F1B /* Header.swift */; };
 		A2D04BCD2997EA92008E2F1B /* Hero.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2D04BCC2997EA92008E2F1B /* Hero.swift */; };
 		A2DC28B829A52F3E005E8549 /* Wireframe_CapstoneProject.jpg in Resources */ = {isa = PBXBuildFile; fileRef = A2DC28B729A52F3E005E8549 /* Wireframe_CapstoneProject.jpg */; };
@@ -54,6 +55,7 @@
 		A28300622996DFDA008F7177 /* ExampleDatabase.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = ExampleDatabase.xcdatamodel; sourceTree = "<group>"; };
 		A2A47F2929952E330037375D /* Onboarding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Onboarding.swift; sourceTree = "<group>"; };
 		A2BA0A53299D75820032E5B3 /* DishDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DishDetails.swift; sourceTree = "<group>"; };
+		A2CDCC0729A62BF70031BFEB /* UserForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserForm.swift; sourceTree = "<group>"; };
 		A2D04BCA2997E20D008E2F1B /* Header.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Header.swift; sourceTree = "<group>"; };
 		A2D04BCC2997EA92008E2F1B /* Hero.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Hero.swift; sourceTree = "<group>"; tabWidth = 4; usesTabs = 0; wrapsLines = 1; };
 		A2DC28B729A52F3E005E8549 /* Wireframe_CapstoneProject.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = Wireframe_CapstoneProject.jpg; sourceTree = "<group>"; };
@@ -108,24 +110,15 @@
 			isa = PBXGroup;
 			children = (
 				A25C95B5299511DF00FC73E3 /* LittleLemonRestaurantApp.swift */,
-				A2A47F2929952E330037375D /* Onboarding.swift */,
-				A2F134F5299AC3000031FD53 /* RegistrationForm.swift */,
+				A264091729A55CA0008AA4FF /* ONBOARDING */,
 				A2FA9BBF29966EEA00843F85 /* Home.swift */,
-				A2FA9BC129966F7100843F85 /* Menu.swift */,
-				A2049E4129992A6E00E7055C /* MenuBreakdown.swift */,
-				A2BA0A53299D75820032E5B3 /* DishDetails.swift */,
+				A264091629A55BD5008AA4FF /* MENU */,
 				A2FA9BC329967EA800843F85 /* UserProfile.swift */,
-				A2D04BCA2997E20D008E2F1B /* Header.swift */,
-				A2D04BCC2997EA92008E2F1B /* Hero.swift */,
 				A2DECE1629A406A5001E2255 /* UtilityViews.swift */,
-				A283005D2996CA69008F7177 /* MenuList.swift */,
-				A283005F2996CA7C008F7177 /* MenuItem.swift */,
-				A28300612996DFDA008F7177 /* ExampleDatabase.xcdatamodeld */,
-				A26BE25E2997987D00F8CCC6 /* FetchedObjects.swift */,
-				A26BE25D2997987D00F8CCC6 /* Persistence.swift */,
+				A264091529A55B88008AA4FF /* CORE DATA */,
 				A2390A4F2998097700F100F6 /* Info.plist */,
-				A2DC28B729A52F3E005E8549 /* Wireframe_CapstoneProject.jpg */,
 				A2390A462998056600F100F6 /* Fonts */,
+				A2DC28B729A52F3E005E8549 /* Wireframe_CapstoneProject.jpg */,
 				A25C95B9299511DF00FC73E3 /* Assets.xcassets */,
 				A25C95BB299511DF00FC73E3 /* Preview Content */,
 			);
@@ -138,6 +131,40 @@
 				A25C95BC299511DF00FC73E3 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		A264091529A55B88008AA4FF /* CORE DATA */ = {
+			isa = PBXGroup;
+			children = (
+				A28300612996DFDA008F7177 /* ExampleDatabase.xcdatamodeld */,
+				A26BE25E2997987D00F8CCC6 /* FetchedObjects.swift */,
+				A26BE25D2997987D00F8CCC6 /* Persistence.swift */,
+			);
+			path = "CORE DATA";
+			sourceTree = "<group>";
+		};
+		A264091629A55BD5008AA4FF /* MENU */ = {
+			isa = PBXGroup;
+			children = (
+				A2FA9BC129966F7100843F85 /* Menu.swift */,
+				A2049E4129992A6E00E7055C /* MenuBreakdown.swift */,
+				A2BA0A53299D75820032E5B3 /* DishDetails.swift */,
+				A283005D2996CA69008F7177 /* MenuList.swift */,
+				A283005F2996CA7C008F7177 /* MenuItem.swift */,
+			);
+			path = MENU;
+			sourceTree = "<group>";
+		};
+		A264091729A55CA0008AA4FF /* ONBOARDING */ = {
+			isa = PBXGroup;
+			children = (
+				A2A47F2929952E330037375D /* Onboarding.swift */,
+				A2F134F5299AC3000031FD53 /* RegistrationForm.swift */,
+				A2CDCC0729A62BF70031BFEB /* UserForm.swift */,
+				A2D04BCC2997EA92008E2F1B /* Hero.swift */,
+				A2D04BCA2997E20D008E2F1B /* Header.swift */,
+			);
+			path = ONBOARDING;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -232,6 +259,7 @@
 				A26BE2602997987D00F8CCC6 /* FetchedObjects.swift in Sources */,
 				A25C95B6299511DF00FC73E3 /* LittleLemonRestaurantApp.swift in Sources */,
 				A2D04BCD2997EA92008E2F1B /* Hero.swift in Sources */,
+				A2CDCC0829A62BF70031BFEB /* UserForm.swift in Sources */,
 				A2DECE1729A406A5001E2255 /* UtilityViews.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

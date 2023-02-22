@@ -33,6 +33,7 @@ struct Menu: View {
             catch { print(error) }
         }
     }
+    
     // list view of the fetched menu items
     private var dishItemList: some View {
         NavigationView {

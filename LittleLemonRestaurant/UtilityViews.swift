@@ -7,7 +7,7 @@
 
 import SwiftUI
 // TextField style
-struct RegisteringField: ViewModifier {
+struct FormField: ViewModifier {
     var text: String
     
     func body(content: Content) -> some View {
@@ -26,7 +26,7 @@ struct RegisteringField: ViewModifier {
 
 extension View {
     func styledTextField(with text: String) -> some View {
-        modifier(RegisteringField(text: text))
+        modifier(FormField(text: text))
     }
 }
 // Button styles

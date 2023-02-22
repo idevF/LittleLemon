@@ -10,20 +10,39 @@ import SwiftUI
 struct UserProfile: View {
     @Environment(\.presentationMode) var presentation // required to dismiss from this view to main navigation view
     
+    @State private var firstNameLabel = UserDefaults.standard.string(forKey: keyFirstName) ?? ""
+    @State private var lastNameLabel = UserDefaults.standard.string(forKey: keyLastName) ?? ""
+    @State private var emailLabel = UserDefaults.standard.string(forKey: keyEmail) ?? ""
+    
     @State private var isLoggedIn = true
+    @State private var isSaved = false
+    
+    @State private var userForm = UserForm()
+    
+    private let notificationOptions = ["Order statutes", "Password changes", "Special offers", "Newsletter"]
+    @State private var notificationStates = [false, false, false, false]
     
     var body: some View {
-        VStack(spacing: 30) {
+        VStack(spacing: 20) {
             
             Header()
             
             avatarSection
             
-            RegistrationForm(isLoggedIn: $isLoggedIn)
+            styledTextFieldSection
+            
+            emailNotifications
             
             logoutButton
+            
+            discardChangesButtonAndSaveChangesButton
         }
         .padding()
+        .alert("ERROR !", isPresented: $userForm.showInvalidMessage) {
+            Button("OK", role: .cancel) { }
+        } message: {
+            Text(userForm.errorMessage)
+        }
     }
     // avatar layer
     private var avatarSection: some View {
@@ -54,6 +73,47 @@ struct UserProfile: View {
             }
         }
     }
+    
+    // styled textfields
+    @ViewBuilder
+    private var styledTextFieldSection: some View {
+        TextField(firstNameLabel, text: $userForm.firstName)
+            .styledTextField(with: "First Name")
+        
+        TextField(lastNameLabel, text: $userForm.lastName)
+            .styledTextField(with: "Last Name")
+        
+        TextField(emailLabel, text: $userForm.email)
+            .styledTextField(with: "Email")
+            .keyboardType(.emailAddress)
+            .textContentType(.emailAddress)
+            .autocapitalization(.none)
+    }
+    
+    // email notifications
+    private var emailNotifications: some View {
+        VStack(alignment: .leading, spacing: 5) {
+            Text("Email notifications")
+                .font(.custom("Karla-Bold", size: 18))
+                .foregroundColor(Color("highlightTwo"))
+            
+            ForEach(notificationOptions.indices, id: \.self) { index in
+                HStack {
+                    Image(systemName: notificationStates[index] ? "checkmark.square.fill" : "square")
+                        .foregroundColor(notificationStates[index] ? Color("primaryOne") : Color.black)
+                    Text(notificationOptions[index])
+                }
+                .onTapGesture {
+                    withAnimation(.easeInOut(duration: 0.7)) {
+                        notificationStates[index].toggle()
+                    }
+                }
+            }
+        }
+        .font(.custom("Karla-Regular", size: 16))
+        .padding(.trailing, 220)
+    }
+    
     // logout button
     private var logoutButton: some View {
         Button("Log out") {
@@ -66,6 +126,37 @@ struct UserProfile: View {
             self.presentation.wrappedValue.dismiss() // dismiss from this view to main navigation view
         }
         .buttonStyleFive()
+    }
+    
+    // discard and save buttons
+    private var discardChangesButtonAndSaveChangesButton: some View {
+        HStack(spacing: 30) {
+            Spacer()
+            // Discard button
+            Button("Discard changes") {
+                userForm.firstName = ""; userForm.lastName = ""; userForm.email = ""
+                notificationStates = [false, false, false, false]
+            }
+            .buttonStyleTwo()
+
+            // Save button
+            Button("Save changes") {
+                userForm.validateUserForm()
+                if userForm.isUserFormValid {
+                    isSaved = true
+                    userForm.isUserFormValid = false
+                }
+                UserDefaults.standard.set(notificationStates, forKey: keyNotificationStates)
+            }
+            .buttonStyleOne()
+            .alert("NOTIFICATION !", isPresented: $isSaved) {
+                Button("OK", role: .cancel) { isSaved = false }
+            } message: {
+                Text("Personal information has changed.")
+            }
+
+            Spacer()
+        }
     }
 }
 
